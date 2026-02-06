@@ -1,0 +1,7 @@
+export { PythonIcon } from './PythonIcon'
+export { TypeScriptIcon } from './TypeScriptIcon'
+export { SupabaseIcon } from './SupabaseIcon'
+export { NodeIcon } from './NodeIcon'
+export { ReactIcon } from './ReactIcon'
+export { NextIcon } from './NextIcon'
+export { GitIcon } from './GitIcon'
