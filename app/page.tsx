@@ -11,7 +11,7 @@ import { Contact } from "@/components/sections/Contact"
 import { allProjects } from "contentlayer/generated"
 
 export default function Home() {
-  const sortedProjects = allProjects.sort((a, b) => a.order - b.order)
+  const sortedProjects = [...allProjects].sort((a, b) => a.order - b.order)
 
   return (
     <div className="flex min-h-screen flex-col">

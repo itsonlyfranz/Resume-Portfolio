@@ -12,6 +12,7 @@
     "@ai-sdk/google": "^3.0.21",
     "@ai-sdk/react": "^3.0.73",
     "@hookform/resolvers": "^5.2.2",
+    "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-tabs": "^1.1.13",
     "@vercel/analytics": "^1.6.1",
     "ai": "^6.0.71",

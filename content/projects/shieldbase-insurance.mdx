@@ -1,0 +1,41 @@
+---
+title: "ShieldBase Insurance Assistant"
+description: "AI-powered insurance chatbot with RAG knowledge base, LangGraph orchestration, and multi-step quotation flow for auto, home, and life insurance."
+featured: true
+image: "/projects/shieldbase-placeholder.png"
+technologies:
+  ["Next.js", "LangGraph", "LangChain", "TypeScript", "Groq", "RAG", "AI/ML"]
+liveUrl: ""
+githubUrl: "https://github.com/itsonlyfranz/ShieldBaseInsurance-Tenext"
+highlights:
+  - "Built a multi-node LangGraph StateGraph orchestrating intent detection, retrieval, grading, retry, clarification, and response finalization"
+  - "Implemented RAG pipeline with vector search, chunk grading, query rewriting, and fallback clarification using Groq LLM and OpenRouter embeddings"
+  - "Designed a stateful multi-step quotation flow (identify → collect → validate → quote → confirm) with mid-quote side-question routing to RAG and resume"
+  - "Added greeting detection, paused-quote context preservation, and branded onboarding response path"
+  - "Integrated streaming responses with selective token emission using LangGraph streamMode"
+date: "2025"
+category: "AI/ML"
+order: 1
+---
+
+An AI-powered insurance chatbot that answers product questions from a markdown knowledge base and guides users through structured insurance quotation flows for auto, home, and life insurance.
+
+## Architecture
+
+The system uses a **LangGraph StateGraph** to orchestrate multiple specialized nodes:
+
+- **detectIntent** — classifies each message as quotation or conversational, with mid-quote side-question escape routing
+- **rewriteQuery** — rewrites user queries for better retrieval
+- **retrieveChunks** — vector similarity search over the knowledge base
+- **gradeChunks** — LLM-based relevance grading with retry loop
+- **askClarifyingQuestion** — branded clarification when retrieval fails
+- **finalizeResponse** — the sole node that emits assistant messages, supporting RAG answers, citations, and quote CTAs
+
+## Key Features
+
+- Stateful quotation flow with field-by-field collection and validation
+- Mid-quote informational side questions route to RAG, preserving quote progress
+- Paused quote context restored when user continues
+- Greeting and low-context detection with branded ShieldBase onboarding response
+- Groq `llama-3.3-70b-versatile` for chat and structured classification; OpenRouter for embeddings
+

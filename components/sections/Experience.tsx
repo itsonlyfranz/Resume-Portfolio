@@ -9,7 +9,7 @@ export function Experience() {
     {
       company: "THEOSYM",
       position: "AI Engineer / Backend Developer",
-      period: "Nov 2024 - Present",
+      period: "Nov 2024 - January 2026",
       description: "Designing and optimizing scalable backend systems and APIs supporting AI-driven applications.",
       impact: [
         "Designed scalable backend systems supporting AI-driven, full-stack applications",
