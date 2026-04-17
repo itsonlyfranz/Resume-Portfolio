@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Tailwind v4 container sets max-width only; center page content */
+.container {
+  margin-inline: auto;
+}
+
 :root {
   --background: 0 0% 100%;
   --foreground: 0 0% 9%;

@@ -34,14 +34,19 @@ export function Header() {
       // Update active section
       const sections = navItems.map(item => item.href.substring(1))
       const scrollPosition = window.scrollY + 100
+      const aboutEl = document.getElementById("about")
 
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(`#${section}`)
-            break
+      if (aboutEl && scrollPosition < aboutEl.offsetTop) {
+        setActiveSection("#about")
+      } else {
+        for (const section of sections) {
+          const element = document.getElementById(section)
+          if (element) {
+            const { offsetTop, offsetHeight } = element
+            if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+              setActiveSection(`#${section}`)
+              break
+            }
           }
         }
       }
