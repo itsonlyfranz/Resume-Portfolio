@@ -1,0 +1,2 @@
+# YAML front matter in MDX must parse cleanly on Windows (no stray \r on values)
+content/**/*.mdx text eol=lf

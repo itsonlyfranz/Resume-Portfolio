@@ -182,5 +182,7 @@ export const Project = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "content",
+  /** Draft/archived MDX under projects/_archive is not part of the Project glob */
+  contentDirExclude: ["projects/_archive"],
   documentTypes: [Experience, Education, Certification, Project],
 })
