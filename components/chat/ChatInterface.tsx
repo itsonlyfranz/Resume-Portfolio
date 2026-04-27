@@ -41,7 +41,7 @@ export function ChatInterface() {
         {messages.length === 0 && (
           <div className="text-center text-muted-foreground mt-12">
             <p className="mb-4 text-lg">👋 Hello!</p>
-            <p className="mb-2">I&apos;m an AI assistant here to answer questions about Roberto.</p>
+            <p className="mb-2">I answer questions using Roberto&apos;s portfolio content.</p>
             <div className="mt-6 space-y-2 text-sm">
               <p className="font-medium">Try asking:</p>
               <ul className="space-y-1">

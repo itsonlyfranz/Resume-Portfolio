@@ -1,44 +1,63 @@
-import { convertToModelMessages, streamText, UIMessage } from 'ai';
-import { google } from '@ai-sdk/google';
+import { createUIMessageStream, createUIMessageStreamResponse, type UIMessage } from "ai"
 
-export const maxDuration = 30;
+import { streamGroundedAnswer } from "@/lib/rag/graph"
 
-const RESUME_CONTEXT = `You are an AI assistant representing Señor Roberto Francisco Pablo.
+export const maxDuration = 60
 
-BACKGROUND:
-- AI Engineer at THEOSYM (Nov 2024 - January 2026)
-- Full Stack Developer specializing in AI and Backend
-- Location: Baguio City, Philippines
-- Email: robertopablo13.rp@gmail.com
+function getMessageText(message: UIMessage): string {
+  return message.parts
+    .map((part) => (part.type === "text" ? part.text : ""))
+    .join("")
+    .trim()
+}
 
-KEY EXPERTISE:
-- LLM-based AI agents and prompt engineering
-- Model Context Protocol (MCP) integration
-- Backend development (Python, Node.js, TypeScript)
-- AI automation pipelines with n8n
-- Full-stack development (Next.js, React, Supabase)
+function getLatestUserQuestion(messages: UIMessage[]): string {
+  const latestUserMessage = [...messages].reverse().find((message) => message.role === "user")
+  return latestUserMessage ? getMessageText(latestUserMessage) : ""
+}
 
-EDUCATION:
-- BS Information Technology, University of the Cordilleras (2022-2025)
-- Major in Network and Security
-
-CERTIFICATIONS:
-- Blockchain
-- Technical Support Fundamentals (Google)
-- The Bits and Bytes of Computer Networking (Google)
-
-Answer questions professionally about Franciscos background, skills, and experience. 
-If asked about availability, mention he's currently available for AI/Backend projects.
-For project inquiries, direct them to use the Contact Form tab.`;
+function formatConversationHistory(messages: UIMessage[]): string {
+  return messages
+    .slice(0, -1)
+    .slice(-6)
+    .map((message) => {
+      const text = getMessageText(message)
+      return text ? `${message.role}: ${text}` : ""
+    })
+    .filter(Boolean)
+    .join("\n")
+}
 
 export async function POST(req: Request) {
-  const { messages }: { messages: UIMessage[] } = await req.json();
+  const { messages }: { messages: UIMessage[] } = await req.json()
+  const question = getLatestUserQuestion(messages)
+  const history = formatConversationHistory(messages)
+  const textId = crypto.randomUUID()
 
-  const result = streamText({
-    model: google('gemini-2.5-flash'),
-    system: RESUME_CONTEXT,
-    messages: await convertToModelMessages(messages),
-  });
+  const stream = createUIMessageStream({
+    originalMessages: messages,
+    execute: async ({ writer }) => {
+      writer.write({ type: "text-start", id: textId })
 
-  return result.toUIMessageStreamResponse();
+      if (!question) {
+        writer.write({
+          type: "text-delta",
+          id: textId,
+          delta: "I don't have that information in the site content.",
+        })
+      } else {
+        for await (const delta of streamGroundedAnswer({ question, history })) {
+          writer.write({ type: "text-delta", id: textId, delta })
+        }
+      }
+
+      writer.write({ type: "text-end", id: textId })
+    },
+    onError: (error) => {
+      console.error("RAG chat error:", error)
+      return "The portfolio chat could not answer right now. Please try again later."
+    },
+  })
+
+  return createUIMessageStreamResponse({ stream })
 }

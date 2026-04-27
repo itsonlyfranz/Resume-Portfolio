@@ -32,7 +32,7 @@ A modern, responsive portfolio website built with Next.js 16, React, TypeScript,
 
 ### Prerequisites
 
-- Node.js 18+ and npm
+- Node.js 20+ and npm
 
 ### Installation
 
@@ -199,6 +199,12 @@ CONTACT_EMAIL=your.email@example.com
 
 # Site URL
 NEXT_PUBLIC_SITE_URL=https://yourportfolio.com
+
+# Content-only RAG chat
+OPENROUTER_API_KEY=your_openrouter_api_key
+OPENROUTER_EMBEDDING_MODEL=openai/text-embedding-3-small
+GROQ_API_KEY=your_groq_api_key
+GROQ_CHAT_MODEL=llama-3.3-70b-versatile
 ```
 
 ### Setting up Email (Optional)
@@ -209,6 +215,12 @@ NEXT_PUBLIC_SITE_URL=https://yourportfolio.com
 4. Add your contact email to `.env` file
 
 If you don't set up email, form submissions will be logged to the console in development.
+
+### Setting up RAG Chat
+
+1. Add `OPENROUTER_API_KEY` and `OPENROUTER_EMBEDDING_MODEL` for runtime embeddings.
+2. Add `GROQ_API_KEY` and `GROQ_CHAT_MODEL` for reranking and answer generation.
+3. Configure the same variables in Vercel so `/api/chat` can answer from the MDX content.
 
 ## Deployment
 

@@ -61,8 +61,8 @@ export function ChatWidget() {
           <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.length === 0 && (
               <div className="text-center text-muted-foreground text-sm mt-8">
-                <p className="mb-2">👋 Hi! I&apos;m here to answer questions about Roberto.</p>
-                <p className="text-xs">Try asking about his skills, experience, or projects!</p>
+                <p className="mb-2">👋 Hi! I answer from Roberto&apos;s portfolio content.</p>
+                <p className="text-xs">Try asking about his skills, experience, projects, or certifications.</p>
               </div>
             )}
             {messages.map(m => (
