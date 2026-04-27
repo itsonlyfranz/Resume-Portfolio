@@ -1,18 +1,18 @@
-import { Github, Linkedin, Mail, Twitter } from "lucide-react"
+import { Github, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
 
   const socialLinks = [
-    { name: "GitHub", href: "https://github.com", icon: Github },
+    { name: "GitHub", href: "https://github.com/itsonlyfranz", icon: Github },
     { name: "LinkedIn", href: "https://linkedin.com/in/señor-roberto-francisco-pablo-b748581ba", icon: Linkedin },
     { name: "Email", href: "mailto:robertopablo13.rp@gmail.com", icon: Mail },
   ]
 
   return (
-    <footer className="border-t">
-      <div className="container px-4 py-8 md:py-12">
+    <footer className="border-t bg-background">
+      <div className="mx-auto max-w-5xl px-4 py-6 md:px-6">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-sm text-muted-foreground">
             © {currentYear} Señor Roberto Francisco Pablo. All rights reserved.

@@ -1,8 +1,7 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Briefcase, Calendar } from "lucide-react"
+import { Briefcase } from "lucide-react"
 
 export function Experience() {
   const experiences = [
@@ -26,170 +25,41 @@ export function Experience() {
   ]
 
   return (
-    <section id="experience" className="py-20 md:py-32">
-      <div className="container px-4">
-        <div className="flex flex-col items-center text-center mb-12">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-sm font-semibold text-primary">03</span>
-            <h2 className="text-3xl md:text-4xl font-bold">Where I Applied It</h2>
-          </div>
-          <p className="text-muted-foreground max-w-2xl">
-            Real-world projects and measurable impact in production environments.
-          </p>
-        </div>
+    <section id="experience" className="rounded-xl border bg-card p-4">
+      <div className="mb-4 flex items-center gap-2">
+        <Briefcase className="h-4 w-4 text-primary" />
+        <h2 className="resume-heading">Experience</h2>
+      </div>
 
-        <div className={`mx-auto ${experiences.length === 1 ? "max-w-3xl" : "max-w-4xl"}`}>
-          {experiences.length === 1 ? (
-            // Single experience: centered card without timeline
-            <div className="flex justify-center">
-              <Card className="w-full hover:border-primary transition-colors">
-                <CardHeader>
-                  <div className="flex items-start justify-between flex-col md:flex-row gap-2">
-                    <div>
-                      <CardTitle className="text-xl mb-1">{experiences[0].position}</CardTitle>
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Briefcase className="h-4 w-4" />
-                        <span className="font-medium">{experiences[0].company}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground whitespace-nowrap">
-                      <Calendar className="h-4 w-4" />
-                      <span>{experiences[0].period}</span>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">{experiences[0].description}</p>
-                  
-                  {/* Two-column layout for Impact and Responsibilities */}
-                  <div className="grid md:grid-cols-2 gap-6 mb-4">
-                    {/* Impact Section */}
-                    <div>
-                      <h4 className="text-sm font-semibold mb-3 text-foreground">Key Impact</h4>
-                      <ul className="space-y-1.5">
-                        {experiences[0].impact.map((item, i) => (
-                          <li key={i} className="flex items-start">
-                            <span className="text-primary mr-2 mt-1">▹</span>
-                            <span className="text-sm">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Responsibilities Section */}
-                    <div>
-                      <h4 className="text-sm font-semibold mb-3 text-foreground">Responsibilities</h4>
-                      <ul className="space-y-1.5">
-                        {experiences[0].responsibilities.map((item, i) => (
-                          <li key={i} className="flex items-start">
-                            <span className="text-primary mr-2 mt-1">▹</span>
-                            <span className="text-sm">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Tech Stack */}
-                  <div className="pt-4 border-t">
-                    <h4 className="text-xs font-semibold mb-2 text-muted-foreground uppercase tracking-wide">Tech Stack</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {experiences[0].technologies.map((tech) => (
-                        <Badge key={tech} variant="secondary" className="text-xs">
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          ) : (
-            // Multiple experiences: timeline layout
+      <div className="space-y-5">
+        {experiences.map((exp) => (
+          <div key={`${exp.company}-${exp.position}`} className="border-l border-border pl-4">
             <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-border" />
-
-              <div className="space-y-12">
-                {experiences.map((exp, index) => (
-                  <div
-                    key={index}
-                    className={`relative ${
-                      index % 2 === 0 ? "md:pr-1/2 md:text-right" : "md:pl-1/2 md:ml-auto"
-                    }`}
-                  >
-                    {/* Timeline dot */}
-                    <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 -translate-y-4 md:translate-y-0">
-                      <div className="w-4 h-4 rounded-full bg-primary border-4 border-background" />
-                    </div>
-
-                    <Card className="ml-8 md:ml-0 hover:border-primary transition-colors">
-                      <CardHeader>
-                        <div className="flex items-start justify-between flex-col md:flex-row gap-2">
-                          <div className={index % 2 === 0 ? "md:text-right" : ""}>
-                            <CardTitle className="text-xl mb-1">{exp.position}</CardTitle>
-                            <div className="flex items-center gap-2 text-muted-foreground">
-                              <Briefcase className="h-4 w-4" />
-                              <span className="font-medium">{exp.company}</span>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground whitespace-nowrap">
-                            <Calendar className="h-4 w-4" />
-                            <span>{exp.period}</span>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-muted-foreground mb-4">{exp.description}</p>
-                        
-                        {/* Two-column layout */}
-                        <div className="grid md:grid-cols-2 gap-6 mb-4">
-                          {/* Impact Section */}
-                          <div>
-                            <h4 className="text-sm font-semibold mb-3 text-foreground">Key Impact</h4>
-                            <ul className="space-y-1.5">
-                              {exp.impact.map((item, i) => (
-                                <li key={i} className="flex items-start">
-                                  <span className="text-primary mr-2 mt-1">▹</span>
-                                  <span className="text-sm">{item}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          {/* Responsibilities Section */}
-                          <div>
-                            <h4 className="text-sm font-semibold mb-3 text-foreground">Responsibilities</h4>
-                            <ul className="space-y-1.5">
-                              {exp.responsibilities.map((item, i) => (
-                                <li key={i} className="flex items-start">
-                                  <span className="text-primary mr-2 mt-1">▹</span>
-                                  <span className="text-sm">{item}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-
-                        {/* Tech Stack */}
-                        <div className="pt-4 border-t">
-                          <h4 className="text-xs font-semibold mb-2 text-muted-foreground uppercase tracking-wide">Tech Stack</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {exp.technologies.map((tech) => (
-                              <Badge key={tech} variant="secondary" className="text-xs">
-                                {tech}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                ))}
+              <span className="absolute -left-[21px] top-1.5 h-2.5 w-2.5 rounded-full bg-primary" />
+              <h3 className="text-sm font-semibold leading-5">{exp.position}</h3>
+              <div className="mt-1 flex items-center justify-between gap-3 text-xs text-muted-foreground">
+                <span>{exp.company}</span>
+                <span className="text-right">{exp.period}</span>
               </div>
             </div>
-          )}
-        </div>
+            <p className="mt-3 text-xs leading-5 text-muted-foreground">{exp.description}</p>
+            <ul className="mt-3 space-y-1.5 text-xs leading-5">
+              {exp.impact.slice(0, 3).map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="text-primary">▹</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {exp.technologies.slice(0, 8).map((tech) => (
+                <Badge key={tech} variant="secondary" className="text-[10px]">
+                  {tech}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   )

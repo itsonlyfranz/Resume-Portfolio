@@ -14,14 +14,19 @@ export function ChatWidget() {
     transport: new DefaultChatTransport({ api: '/api/chat' }),
   });
   const [input, setInput] = useState('');
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    const container = messagesContainerRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+  };
 
   useEffect(() => {
-    const el = scrollContainerRef.current;
-    if (el) {
-      el.scrollTop = el.scrollHeight;
-    }
-  }, [messages, isOpen]);
+    scrollToBottom();
+  }, [messages]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,7 +58,7 @@ export function ChatWidget() {
           </div>
 
           {/* Messages */}
-          <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.length === 0 && (
               <div className="text-center text-muted-foreground text-sm mt-8">
                 <p className="mb-2">👋 Hi! I&apos;m here to answer questions about Roberto.</p>
@@ -82,6 +87,7 @@ export function ChatWidget() {
                 </div>
               </div>
             )}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Input */}

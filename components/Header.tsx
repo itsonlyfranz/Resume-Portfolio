@@ -12,13 +12,11 @@ export function Header() {
   const [scrollProgress, setScrollProgress] = React.useState(0)
 
   const navItems = [
-    { name: "Overview", href: "#about", label: "1" },
-    { name: "Projects", href: "#projects", label: "2" },
-    { name: "Experience", href: "#experience", label: "3" },
-    { name: "Skills", href: "#skills", label: "4" },
-    { name: "Education", href: "#education", label: "5" },
-    { name: "Certifications", href: "#certifications", label: "6" },
-    { name: "Contact", href: "#contact", label: "7" },
+    { name: "About", href: "#about" },
+    { name: "Work", href: "#experience" },
+    { name: "Projects", href: "#projects" },
+    { name: "Skills", href: "#skills" },
+    { name: "Contact", href: "#contact" },
   ]
 
   React.useEffect(() => {
@@ -67,9 +65,8 @@ export function Header() {
   }
 
   return (
-    <header className="fixed top-0 w-full z-50 border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-      {/* Progress indicator - tracks actual scroll position */}
-      <div className="absolute bottom-0 left-0 h-0.5 bg-primary/20 w-full">
+    <header className="fixed top-0 z-50 w-full border-b bg-background/90 backdrop-blur supports-backdrop-filter:bg-background/70">
+      <div className="absolute bottom-0 left-0 h-px w-full bg-border">
         <div 
           className="h-full bg-primary transition-all duration-150"
           style={{
@@ -78,30 +75,26 @@ export function Header() {
         />
       </div>
 
-      <nav className="container flex h-16 items-center justify-between px-4">
+      <nav className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center space-x-2">
-          <span className="font-bold text-xl">Portfolio</span>
+          <span className="text-sm font-semibold tracking-tight">Señor Roberto Francisco Pablo</span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="hidden items-center gap-4 md:flex">
           {navItems.map((item) => (
             <a
               key={item.name}
               href={item.href}
               onClick={(e) => scrollToSection(e, item.href)}
-              className={`text-sm font-medium transition-all duration-200 relative group hover:-translate-y-0.5 ${
+              className={`relative text-xs font-medium transition-colors ${
                 activeSection === item.href 
                   ? "text-primary" 
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <span className="hidden lg:inline-block mr-1 text-xs text-muted-foreground group-hover:text-primary transition-colors">
-                {item.label}.
-              </span>
               {item.name}
               {activeSection === item.href && (
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary/60 transition-all" />
+                <span className="absolute -bottom-1 left-0 right-0 h-px bg-primary transition-all" />
               )}
             </a>
           ))}
@@ -130,7 +123,7 @@ export function Header() {
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t">
-          <div className="container px-4 py-4 space-y-3">
+          <div className="mx-auto max-w-5xl space-y-3 px-4 py-4">
             {navItems.map((item) => (
               <a
                 key={item.name}
@@ -142,7 +135,6 @@ export function Header() {
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                <span className="text-xs text-muted-foreground">{item.label}.</span>
                 {item.name}
               </a>
             ))}

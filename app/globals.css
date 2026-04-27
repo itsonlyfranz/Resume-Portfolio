@@ -1,53 +1,48 @@
 @import "tailwindcss";
 
-/* Tailwind v4 container sets max-width only; center page content */
-.container {
-  margin-inline: auto;
-}
-
 :root {
-  --background: 0 0% 100%;
-  --foreground: 0 0% 9%;
+  --background: 36 33% 97%;
+  --foreground: 24 16% 10%;
   --card: 0 0% 100%;
-  --card-foreground: 0 0% 9%;
+  --card-foreground: 24 16% 10%;
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 9%;
-  --primary: 191 100% 50%;
+  --popover-foreground: 24 16% 10%;
+  --primary: 19 90% 52%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 0 0% 96%;
-  --secondary-foreground: 0 0% 9%;
-  --muted: 0 0% 96%;
-  --muted-foreground: 0 0% 45%;
-  --accent: 191 100% 50%;
-  --accent-foreground: 0 0% 9%;
+  --secondary: 30 24% 92%;
+  --secondary-foreground: 24 16% 14%;
+  --muted: 30 22% 93%;
+  --muted-foreground: 24 9% 43%;
+  --accent: 28 92% 58%;
+  --accent-foreground: 24 16% 10%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 90%;
-  --input: 0 0% 90%;
-  --ring: 191 100% 50%;
-  --radius: 0.5rem;
+  --border: 28 18% 84%;
+  --input: 28 18% 84%;
+  --ring: 19 90% 52%;
+  --radius: 0.75rem;
 }
 
 .dark {
-  --background: 240 12% 4%;
-  --foreground: 0 0% 97%;
-  --card: 240 11% 10%;
-  --card-foreground: 0 0% 97%;
-  --popover: 240 11% 10%;
-  --popover-foreground: 0 0% 97%;
-  --primary: 191 100% 50%;
-  --primary-foreground: 240 12% 4%;
-  --secondary: 240 11% 10%;
-  --secondary-foreground: 0 0% 97%;
-  --muted: 240 11% 15%;
-  --muted-foreground: 0 0% 63%;
-  --accent: 191 100% 50%;
-  --accent-foreground: 0 0% 97%;
+  --background: 24 14% 8%;
+  --foreground: 36 33% 96%;
+  --card: 24 12% 12%;
+  --card-foreground: 36 33% 96%;
+  --popover: 24 12% 12%;
+  --popover-foreground: 36 33% 96%;
+  --primary: 22 92% 60%;
+  --primary-foreground: 24 14% 8%;
+  --secondary: 24 10% 16%;
+  --secondary-foreground: 36 33% 96%;
+  --muted: 24 10% 16%;
+  --muted-foreground: 34 14% 70%;
+  --accent: 28 92% 58%;
+  --accent-foreground: 24 14% 8%;
   --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 97%;
-  --border: 240 11% 15%;
-  --input: 240 11% 15%;
-  --ring: 191 100% 50%;
+  --destructive-foreground: 36 33% 96%;
+  --border: 24 10% 20%;
+  --input: 24 10% 20%;
+  --ring: 22 92% 60%;
 }
 
 @theme inline {
@@ -87,6 +82,26 @@ body {
   margin-inline: auto;
 }
 
+.resume-section {
+  border-top: 1px solid hsl(var(--border));
+  padding-block: 1.5rem;
+}
+
+.resume-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.resume-pill {
+  border: 1px solid hsl(var(--border));
+  border-radius: 9999px;
+  background: hsl(var(--secondary) / 0.65);
+  padding: 0.25rem 0.625rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
 .fade-in {
   animation: fadeIn 0.6s ease-in;
 }
@@ -109,25 +124,7 @@ body {
   background-size: 40px 40px;
 }
 
-/* Guided flow separators */
 section {
-  position: relative;
-}
-
-section:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 40px;
-  background: linear-gradient(to bottom, hsl(var(--primary) / 0.3), transparent);
-}
-
-/* Section number styling */
-section h2 + div,
-section > div > div:first-child {
   position: relative;
 }
 

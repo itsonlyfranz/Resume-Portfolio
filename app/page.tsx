@@ -14,17 +14,23 @@ export default function Home() {
   const sortedProjects = [...allProjects].sort((a, b) => a.order - b.order)
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="min-h-screen">
       <Header />
-      <main className="flex-1">
+      <main className="mx-auto max-w-5xl px-4 pb-12 pt-20 md:px-6 md:pt-24">
         <Hero />
-        <About />
-        <Projects projects={sortedProjects} />
-        <Experience />
-        <Skills />
-        <Education />
-        <Certifications />
-        <Contact />
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+          <div className="min-w-0">
+            <About />
+            <Skills />
+            <Projects projects={sortedProjects} />
+            <Contact />
+          </div>
+          <aside className="min-w-0 space-y-6 lg:sticky lg:top-24">
+            <Experience />
+            <Education />
+            <Certifications />
+          </aside>
+        </div>
       </main>
       <Footer />
     </div>

@@ -31,56 +31,51 @@ export function Projects({ projects }: ProjectsProps) {
   const regularProjects = filteredProjects.filter(p => !p.featured)
 
   return (
-    <section id="projects" className="py-20 md:py-32">
-      <div className="container px-4">
-        <div className="flex flex-col items-center text-center mb-12">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-sm font-semibold text-primary">02</span>
-            <h2 className="text-3xl md:text-4xl font-bold">What I&apos;ve Built</h2>
-          </div>
-          <p className="text-muted-foreground max-w-2xl">
-            Featured projects showcasing my work in AI, automation, and full-stack development.
+    <section id="projects" className="resume-section">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="resume-heading">Recent Projects</h2>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Selected AI, full-stack, mobile, and Web3 work.
           </p>
         </div>
 
-        {/* Filter tabs */}
-        <div className="flex justify-center gap-2 mb-12 flex-wrap">
+        <div className="flex flex-wrap gap-2">
           {categories.map((category) => (
             <Button
               key={category}
               variant={activeFilter === category ? "default" : "outline"}
+              size="sm"
               onClick={() => setActiveFilter(category)}
-              className="transition-all"
+              className="h-8 text-xs"
             >
               {category}
             </Button>
           ))}
         </div>
-
-        {/* Featured Projects - Full width or 2-col */}
-        {featuredProjects.length > 0 && (
-          <div className="grid md:grid-cols-2 gap-6 mb-8 max-w-6xl mx-auto">
-            {featuredProjects.map((project) => (
-              <ProjectCard key={project._id} project={project} featured />
-            ))}
-          </div>
-        )}
-
-        {/* Regular Projects - 3-col grid */}
-        {regularProjects.length > 0 && (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {regularProjects.map((project) => (
-              <ProjectCard key={project._id} project={project} />
-            ))}
-          </div>
-        )}
-
-        {filteredProjects.length === 0 && (
-          <div className="text-center text-muted-foreground py-12">
-            No projects found in this category.
-          </div>
-        )}
       </div>
+
+      {featuredProjects.length > 0 && (
+        <div className="grid gap-4 sm:grid-cols-2">
+          {featuredProjects.map((project) => (
+            <ProjectCard key={project._id} project={project} featured />
+          ))}
+        </div>
+      )}
+
+      {regularProjects.length > 0 && (
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          {regularProjects.map((project) => (
+            <ProjectCard key={project._id} project={project} />
+          ))}
+        </div>
+      )}
+
+      {filteredProjects.length === 0 && (
+        <div className="rounded-xl border bg-card p-4 text-sm text-muted-foreground">
+          No projects found in this category.
+        </div>
+      )}
     </section>
   )
 }
@@ -92,24 +87,24 @@ interface ProjectCardProps {
 
 function ProjectCard({ project, featured = false }: ProjectCardProps) {
   return (
-    <Card className="group flex h-full flex-col overflow-hidden hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
-      <CardHeader>
+    <Card className="group flex h-full flex-col overflow-hidden transition-colors hover:border-primary/40">
+      <CardHeader className="p-4 pb-2">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
+          <h3 className="text-sm font-semibold leading-5 transition-colors group-hover:text-primary">
             {project.title}
           </h3>
           {featured && (
-            <Badge variant="default" className="shrink-0">Featured</Badge>
+            <Badge variant="secondary" className="shrink-0 border-primary/20 text-[10px] text-primary">Featured</Badge>
           )}
         </div>
-        <p className="text-sm text-muted-foreground line-clamp-2">
+        <p className="line-clamp-2 text-xs leading-5 text-muted-foreground">
           {project.description}
         </p>
       </CardHeader>
 
-      <CardContent className="flex-1 space-y-4">
+      <CardContent className="flex-1 space-y-3 p-4 pt-2">
         {project.highlights && project.highlights.length > 0 && (
-          <ul className="space-y-1.5 text-sm">
+          <ul className="space-y-1.5 text-xs leading-5">
             {project.highlights.slice(0, 3).map((highlight, idx) => (
               <li key={idx} className="flex items-start">
                 <span className="text-primary mr-2 shrink-0">▹</span>
@@ -120,11 +115,11 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
         )}
 
         <div className="flex flex-wrap gap-2">
-          {project.technologies.map((tech) => (
+          {project.technologies.slice(0, 7).map((tech) => (
             <Badge 
               key={tech} 
               variant="secondary"
-              className="hover:bg-primary/20 hover:scale-105 transition-all cursor-default"
+              className="cursor-default text-[10px]"
             >
               {tech}
             </Badge>
@@ -132,9 +127,9 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
         </div>
       </CardContent>
 
-      <CardFooter className="mt-auto flex gap-2">
+      <CardFooter className="mt-auto flex gap-2 p-4 pt-0">
         {project.liveUrl && (
-          <Button asChild variant="default" className="flex-1">
+          <Button asChild variant="default" size="sm" className="h-8 flex-1 text-xs">
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
               <ExternalLink className="mr-2 h-4 w-4" />
               View Live
@@ -142,7 +137,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
           </Button>
         )}
         {project.githubUrl && (
-          <Button asChild variant="outline" className={project.liveUrl ? "flex-1" : "w-full"}>
+          <Button asChild variant="outline" size="sm" className={project.liveUrl ? "h-8 flex-1 text-xs" : "h-8 w-full text-xs"}>
             <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
               <Github className="mr-2 h-4 w-4" />
               View Code
