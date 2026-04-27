@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Mail, MapPin } from "lucide-react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export function Hero() {
   const scrollToSection = (id: string) => {
@@ -19,9 +20,16 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.35 }}
-          className="flex h-28 w-28 items-center justify-center rounded-2xl border bg-card text-3xl font-bold tracking-tight text-primary shadow-sm md:h-32 md:w-32"
+          className="relative h-28 w-28 overflow-hidden rounded-2xl border bg-card shadow-sm md:h-32 md:w-32"
         >
-          RP
+          <Image
+            src="/profile.jpeg"
+            alt="Profile photo of Señor Roberto Francisco Pablo"
+            fill
+            sizes="(min-width: 768px) 128px, 112px"
+            className="object-cover"
+            priority
+          />
         </motion.div>
 
         <div className="space-y-4">
