@@ -5,7 +5,6 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github } from "lucide-react"
-import Image from "next/image"
 import { Project } from "contentlayer/generated"
 
 interface ProjectsProps {
@@ -14,8 +13,14 @@ interface ProjectsProps {
 
 export function Projects({ projects }: ProjectsProps) {
   const [activeFilter, setActiveFilter] = React.useState("All")
-  
-  const categories = ["All", "AI/ML", "Full Stack", "Automation"]
+
+  const categories = React.useMemo(() => {
+    const projectCategories = projects
+      .map((project) => project.category)
+      .filter((category): category is string => Boolean(category))
+
+    return ["All", ...Array.from(new Set(projectCategories))]
+  }, [projects])
   
   const filteredProjects = React.useMemo(() => {
     if (activeFilter === "All") return projects
@@ -87,19 +92,7 @@ interface ProjectCardProps {
 
 function ProjectCard({ project, featured = false }: ProjectCardProps) {
   return (
-    <Card className="group overflow-hidden hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
-      {project.image && (
-        <div className="relative overflow-hidden aspect-video">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        </div>
-      )}
-      
+    <Card className="group flex h-full flex-col overflow-hidden hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
       <CardHeader>
         <div className="flex items-start justify-between gap-2">
           <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
@@ -114,7 +107,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
         </p>
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className="flex-1 space-y-4">
         {project.highlights && project.highlights.length > 0 && (
           <ul className="space-y-1.5 text-sm">
             {project.highlights.slice(0, 3).map((highlight, idx) => (
@@ -139,7 +132,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
         </div>
       </CardContent>
 
-      <CardFooter className="flex gap-2">
+      <CardFooter className="mt-auto flex gap-2">
         {project.liveUrl && (
           <Button asChild variant="default" className="flex-1">
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">

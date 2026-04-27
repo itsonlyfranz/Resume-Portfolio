@@ -1,0 +1,46 @@
+---
+title: "Rack N Sold — NFT Marketplace"
+description: "Full-stack NFT marketplace on the Polygon blockchain with artist upload, admin-gated minting, automated OpenSea listings, and live PHP to WETH pricing."
+featured: true
+image: "/projects/rack-n-sold-placeholder.png"
+technologies:
+  [
+    "Next.js",
+    "TypeScript",
+    "Supabase",
+    "Polygon",
+    "ethers.js",
+    "OpenSea API",
+    "Tailwind CSS",
+    "Zustand",
+  ]
+liveUrl: ""
+githubUrl: "https://github.com/itsonlyfranz/rack-n-sold-next"
+highlights:
+  - "Built end-to-end NFT minting flow on Polygon with admin approval gating — seller uploads artwork, admin approves, ERC-721 token minted via ethers.js v6"
+  - "Automated OpenSea listings on sell-request approval with real-time PHP to WETH price conversion using CoinGecko API"
+  - "Integrated Supabase authentication, PostgreSQL database, and storage for user profiles, artwork metadata, mint and sell request tracking"
+  - "Implemented real-time NFT event tracking via OpenSea Stream API and automated sold-status updates with Resend email notifications via Supabase pg_cron"
+  - "Admin dashboard for reviewing mint/sell requests, monitoring transaction hashes, token IDs, and OpenSea listing URLs"
+date: "2026"
+category: "Full Stack"
+order: 2
+---
+
+A modern NFT marketplace that lets artists upload, mint, and sell digital assets on the Polygon blockchain — with an admin-gated approval pipeline, automated OpenSea listings, and live cryptocurrency pricing.
+
+## Architecture
+
+- **Next.js App Router** with server-side rendering for optimized performance
+- **Supabase** for authentication, PostgreSQL database, and file storage
+- **ethers.js v6** for ERC-721 minting and blockchain interactions on Polygon
+- **opensea-js** for automated NFT listings with WETH pricing
+- **OpenSea Stream API** for real-time sale event tracking
+- **CoinGecko API** for live PHP to WETH exchange rates (60-second cache)
+- **MetaMask SDK** for wallet connection and Polygon network switching
+
+## Key Flows
+
+**Mint flow:** Seller uploads artwork with PHP price → mint request created → admin approves in dashboard → NFT minted on Polygon → token ID stored in Supabase.
+
+**Sell flow:** Seller creates sell request → admin approves → PHP price converted to WETH at live rate → NFT automatically listed on OpenSea → Supabase pg_cron polls OpenSea every 5 minutes → sold event triggers status update and email notification via Resend.

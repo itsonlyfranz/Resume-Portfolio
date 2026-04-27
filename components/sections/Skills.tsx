@@ -7,16 +7,45 @@ export function Skills() {
   const primarySkills = {
     title: "Primary Expertise",
     skills: [
-      "LLM-based Agents", "Prompt Engineering", "Model Context Protocol (MCP)", 
-      "Python", "Node.js", "TypeScript", "RESTful APIs", "n8n Automation"
+      "AI Agents",
+      "Prompt Engineering",
+      "Model Context Protocol (MCP)",
+      "RAG Systems",
+      "LangGraph",
+      "n8n Automation",
+      "Next.js App Router",
+      "TypeScript",
+      "Node.js",
+      "Python",
+      "RESTful APIs",
+      "Supabase",
+      "SwiftUI",
+      "SwiftData",
+      "Local-first iOS Architecture",
+      "Blockchain / Web3 Marketplace Flows",
     ]
   }
 
   const supportingSkills = {
-    title: "Supporting Technologies",
+    title: "Tools, Platforms & Frameworks",
     skills: [
-      "Next.js", "React", "Supabase", "SQL", "Git", "Vercel AI SDK", 
-      "Vector Databases", "Backend Architecture", "API Integration"
+      "React",
+      "LangChain",
+      "Tailwind CSS",
+      "Zustand",
+      "PostgreSQL",
+      "Polygon",
+      "ethers.js",
+      "OpenSea API",
+      "CoinGecko API",
+      "Swift",
+      "Swift Charts",
+      "Apple Intelligence",
+      "Xcode",
+      "Kotlin",
+      "Android",
+      "Git",
+      "Cursor",
     ]
   }
 

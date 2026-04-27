@@ -20,10 +20,10 @@ const techIcons: Record<string, React.ComponentType<{ className?: string }>> = {
 
 export function About() {
   const techStack = [
-    { category: "AI & ML", icon: Sparkles, items: ["LLM Agents", "Prompt Engineering", "MCP", "Vercel AI SDK"] },
-    { category: "Backend", icon: NodeIcon, items: ["Python", "Node.js", "TypeScript", "RESTful APIs"] },
-    { category: "Frameworks", icon: ReactIcon, items: ["Next.js", "React", "n8n"] },
-    { category: "Infrastructure", icon: Database, items: ["Supabase", "Vector DBs", "SQL", "Git"] },
+    { category: "AI & Automation", icon: Sparkles, items: ["LLM Agents", "Prompt Engineering", "MCP", "LangGraph", "n8n"] },
+    { category: "Full Stack", icon: ReactIcon, items: ["Next.js", "React", "TypeScript", "Supabase", "RESTful APIs"] },
+    { category: "Mobile", icon: NodeIcon, items: ["Swift", "SwiftUI", "SwiftData", "Swift Charts", "Apple Intelligence", "Kotlin", "Android"] },
+    { category: "Web3 & Data", icon: Database, items: ["Polygon", "ethers.js", "OpenSea API", "PostgreSQL", "Git"] },
   ]
 
   return (
@@ -35,7 +35,7 @@ export function About() {
             <h2 className="text-3xl md:text-4xl font-bold">What I Build</h2>
           </div>
           <p className="text-muted-foreground max-w-2xl">
-            AI-powered systems, automation pipelines, and scalable backend architectures.
+            AI-powered systems, full-stack products, mobile apps, and automation pipelines.
           </p>
         </div>
 
@@ -53,7 +53,7 @@ export function About() {
             className="inline-flex items-center gap-3 bg-primary/10 border border-primary/20 rounded-full px-6 py-3 hover:bg-primary/20 transition-colors group"
           >
             <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-medium">Currently available for AI/Backend projects</span>
+            <span className="text-sm font-medium">Available for AI, full-stack, and mobile projects</span>
             <span className="text-xs text-muted-foreground group-hover:text-primary transition-colors">Let&apos;s talk →</span>
           </a>
         </div>
@@ -68,19 +68,19 @@ export function About() {
             <CardContent className="pt-6">
               <h3 className="text-xl font-semibold mb-4">Who I Am</h3>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                I&apos;m an AI Engineer with hands-on experience building LLM-based AI agents, backend systems, and
-                automation pipelines for production applications. I have a strong background in Python, TypeScript, 
-                Node.js, and API-driven architectures.
+                I&apos;m an AI Engineer and full-stack developer building LLM-based agents, backend systems, automation
+                pipelines, and API-driven applications. I work across Python, TypeScript, Node.js, Next.js, and Supabase
+                to turn AI capabilities into usable production features.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Experienced in integrating AI capabilities into scalable systems, including structured AI integrations 
-                using the Model Context Protocol (MCP). I specialize in AI workflow orchestration using n8n and building 
-                robust backend systems that power AI-driven applications.
+                My recent work includes a full-stack NFT marketplace with Polygon, ethers.js, OpenSea integrations, and
+                Supabase-backed approval flows, plus a local-first iOS finance app built with SwiftUI, SwiftData, Swift
+                Charts, and an Apple Intelligence-ready service abstraction.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                I thrive on solving complex technical challenges and making AI more accessible to businesses. 
-                When I&apos;m not coding, I&apos;m exploring new AI models, contributing to open-source, or learning 
-                about emerging technologies in the AI/ML space.
+                I focus on clean boundaries between UI, storage, services, and AI providers so products stay maintainable
+                as they grow. When I&apos;m not coding, I&apos;m exploring new AI tooling, product ideas, and emerging mobile
+                and Web3 patterns.
               </p>
             </CardContent>
           </Card>
@@ -91,23 +91,23 @@ export function About() {
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex items-start">
                   <span className="text-primary mr-2">▹</span>
-                  <span>Design and develop LLM-based AI agents using prompt engineering</span>
+                  <span>Design and develop LLM-based agents, RAG systems, and AI workflow automations</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary mr-2">▹</span>
-                  <span>Build scalable backend systems and RESTful APIs</span>
+                  <span>Build full-stack products with Next.js, Supabase, TypeScript, and RESTful APIs</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary mr-2">▹</span>
-                  <span>Create AI automation pipelines using n8n</span>
+                  <span>Implement blockchain and NFT marketplace flows with Polygon, ethers.js, and OpenSea</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary mr-2">▹</span>
-                  <span>Implement AI integrations with Model Context Protocol (MCP)</span>
+                  <span>Create local-first iOS apps with SwiftUI, SwiftData, and Swift Charts</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary mr-2">▹</span>
-                  <span>Integrate AI-powered services into production systems</span>
+                  <span>Separate UI, storage, simulation, and AI provider logic with service-oriented architecture</span>
                 </li>
               </ul>
             </CardContent>

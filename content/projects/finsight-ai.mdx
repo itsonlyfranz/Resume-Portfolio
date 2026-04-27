@@ -1,0 +1,52 @@
+---
+title: "FinSight AI - Personal Finance iOS App"
+description: "Local-first iOS personal finance app built with SwiftUI and SwiftData, featuring expense tracking, AI-powered spending insights, and a forward-looking financial simulator. Designed around an Apple Intelligence abstraction layer for on-device AI."
+featured: true
+image: "/projects/finsight-ai-placeholder.png"
+technologies:
+  [
+    "Swift",
+    "SwiftUI",
+    "SwiftData",
+    "Swift Charts",
+    "Apple Intelligence",
+    "iOS",
+    "Xcode",
+  ]
+liveUrl: ""
+githubUrl: "https://github.com/itsonlyfranz/FinSight-Ai-iOS"
+highlights:
+  - "Built a local-first iOS app with SwiftUI and SwiftData - no backend dependency, all data persisted on-device with full CRUD and seed support"
+  - "Implemented a deterministic financial simulator with daily savings, spending reduction, and savings goal sliders - real-time projection updates with compound growth math"
+  - "Architected a protocol-backed AIInsightService abstraction layer for Apple Intelligence via FoundationModels - guarded behind compile-time and runtime checks so the app degrades gracefully on unsupported devices"
+  - "Separated concerns across TransactionRepository, SummaryService, SimulationService, and AppContext - UI is fully decoupled from storage and AI provider details"
+  - "Used Swift Charts for a category breakdown visualization on the dashboard with monthly aggregation handled by SummaryService"
+date: "2026"
+category: "Mobile / AI"
+order: 4
+---
+
+FinSight AI is an AI-first personal finance concept for iOS focused on moving users from passive expense logging to active financial decision-making, combining clear spending visibility with forward-looking guidance and simulation in a local-first experience.
+
+## Architecture
+
+- **TransactionRepository** handles on-device transaction persistence, full CRUD operations, and seed data workflows through SwiftData.
+- **SummaryService** computes monthly aggregates and category rollups that power dashboard totals and chart-ready breakdowns.
+- **SimulationService** runs deterministic projection math for savings growth, spending reductions, and goal-based timeline scenarios.
+- **AIInsightService** provides a protocol-backed interface for generating spending insights through Apple Intelligence providers.
+- **AppContext** wires shared dependencies so screen-level UI remains decoupled from storage internals and AI implementation details.
+
+## Key Features
+
+- **Dashboard** presents monthly spend summaries, category distribution with Swift Charts, and a high-signal overview of financial trends.
+- **Transactions** supports creation, editing, deletion, and browsing of expense entries with local persistence and predictable data flows.
+- **Insights** delivers AI-powered spending observations and guidance through a service abstraction that can swap providers safely.
+- **Simulator** offers real-time what-if forecasting with sliders for daily savings, spending reduction, and savings goals using compound growth math.
+
+## Apple Intelligence
+
+The app is designed around a protocol-backed `AIInsightService` abstraction layered over `FoundationModels`, with both compile-time guards and runtime availability checks. This approach enables Apple Intelligence features on supported devices while gracefully degrading to non-AI behavior on unsupported environments, without breaking core finance workflows.
+
+## Startup Direction
+
+This MVP establishes the product and architecture foundation for a broader roadmap, including Supabase sync for cross-device continuity, multi-agent financial coaching experiences, and account aggregation to unify external financial data into the same decision-making surface.
