@@ -5,6 +5,8 @@ import { Mail, MapPin } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 
+const heroEase = [0.22, 1, 0.36, 1] as const
+
 export function Hero() {
   const scrollToSection = (id: string) => {
     const element = document.querySelector(id)
@@ -19,7 +21,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.35 }}
+          transition={{ duration: 0.45, ease: heroEase }}
           className="relative h-28 w-28 overflow-hidden rounded-2xl border bg-card shadow-sm md:h-32 md:w-32"
         >
           <Image
@@ -34,9 +36,9 @@ export function Hero() {
 
         <div className="space-y-4">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.08, ease: heroEase }}
             className="space-y-2"
           >
             <div className="flex flex-wrap items-center gap-2">
@@ -52,14 +54,14 @@ export function Hero() {
               Full Stack Developer \ AI Engineer \ Software Engineer
             </p>
             <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-              I build LLM-based AI agents, backend systems, automation pipelines, and full-stack product features with a focus on practical outcomes and maintainable architecture.
+              I build AI-powered full-stack applications, LLM-based agents, automation workflows, and product features that connect clean user experiences with reliable backend systems.
             </p>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            transition={{ duration: 0.45, delay: 0.22, ease: heroEase }}
             className="flex flex-wrap gap-2"
           >
             <Button size="sm" onClick={() => scrollToSection("#contact")}>

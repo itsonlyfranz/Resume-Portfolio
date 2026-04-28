@@ -8,6 +8,7 @@ import { Skills } from "@/components/sections/Skills"
 import { Education } from "@/components/sections/Education"
 import { Certifications } from "@/components/sections/Certifications"
 import { Contact } from "@/components/sections/Contact"
+import { AnimatedSection } from "@/components/AnimatedSection"
 import { allProjects } from "contentlayer/generated"
 
 export default function Home() {
@@ -20,15 +21,29 @@ export default function Home() {
         <Hero />
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
           <div className="min-w-0">
-            <About />
-            <Skills />
-            <Projects projects={sortedProjects} />
-            <Contact />
+            <AnimatedSection>
+              <About />
+            </AnimatedSection>
+            <AnimatedSection delay={0.05}>
+              <Skills />
+            </AnimatedSection>
+            <AnimatedSection delay={0.05}>
+              <Projects projects={sortedProjects} />
+            </AnimatedSection>
+            <AnimatedSection delay={0.05}>
+              <Contact />
+            </AnimatedSection>
           </div>
           <aside className="min-w-0 space-y-6 lg:sticky lg:top-24">
-            <Experience />
-            <Education />
-            <Certifications />
+            <AnimatedSection delay={0.1}>
+              <Experience />
+            </AnimatedSection>
+            <AnimatedSection delay={0.15}>
+              <Education />
+            </AnimatedSection>
+            <AnimatedSection delay={0.2}>
+              <Certifications />
+            </AnimatedSection>
           </aside>
         </div>
       </main>

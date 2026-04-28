@@ -15,14 +15,13 @@ export function About() {
 
       <div className="space-y-4 text-sm leading-6 text-muted-foreground">
         <p>
-          I&apos;m an AI Engineer and full-stack developer building LLM-based agents, backend systems, automation pipelines,
-          and API-driven applications. I work across Python, TypeScript, Node.js, Next.js, and Supabase to turn AI
-          capabilities into usable production features.
+          I&apos;m an AI Engineer and full-stack developer who builds AI-powered applications from idea to deployment. I create
+          LLM-based agents, LangChain-powered workflows, automation systems, and product features that combine
+          clean user experiences with reliable backend architecture.
         </p>
         <p>
-          My recent work focuses on AI-powered product systems: a LangGraph-based insurance assistant with RAG retrieval
-          and multi-step quote orchestration, plus service-oriented mobile and full-stack projects where AI, data, and
-          backend workflows stay cleanly separated.
+          My recent work includes a LangGraph-based insurance assistant with RAG retrieval and multi-step quote orchestration,
+          along with mobile and web projects that connect AI, data, APIs, and user-facing features into maintainable systems.
         </p>
         <p>
           I focus on clean boundaries between UI, storage, services, and AI providers so products stay maintainable as they
