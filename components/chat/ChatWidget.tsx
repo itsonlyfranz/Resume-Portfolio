@@ -54,14 +54,14 @@ export function ChatWidget() {
           {/* Header */}
           <div className="p-4 border-b bg-primary/5">
             <h3 className="font-semibold text-lg">Chat with AI</h3>
-            <p className="text-sm text-muted-foreground">Ask me about Roberto&apos;s experience</p>
+            <p className="text-sm text-muted-foreground">Ask me about Francisco&apos;s experience</p>
           </div>
 
           {/* Messages */}
           <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.length === 0 && (
               <div className="text-center text-muted-foreground text-sm mt-8">
-                <p className="mb-2">👋 Hi! I answer from Roberto&apos;s portfolio content.</p>
+                <p className="mb-2">👋 Hi! I answer from Francisco&apos;s portfolio content.</p>
                 <p className="text-xs">Try asking about his skills, experience, projects, or certifications.</p>
               </div>
             )}

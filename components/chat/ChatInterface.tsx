@@ -41,7 +41,7 @@ export function ChatInterface() {
         {messages.length === 0 && (
           <div className="text-center text-muted-foreground mt-12">
             <p className="mb-4 text-lg">👋 Hello!</p>
-            <p className="mb-2">I answer questions using Roberto&apos;s portfolio content.</p>
+            <p className="mb-2">I answer questions using Francisco&apos;s portfolio content.</p>
             <div className="mt-6 space-y-2 text-sm">
               <p className="font-medium">Try asking:</p>
               <ul className="space-y-1">
@@ -83,7 +83,7 @@ export function ChatInterface() {
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask me anything about Roberto's background..."
+          placeholder="Ask me anything about Francisco's background..."
           disabled={status !== 'ready'}
           className="flex-1"
         />
