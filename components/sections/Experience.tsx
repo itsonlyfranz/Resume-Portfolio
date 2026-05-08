@@ -6,6 +6,15 @@ import { Briefcase } from "lucide-react"
 export function Experience() {
   const experiences = [
     {
+      company: "Shiftcare",
+      position: "AI Engineer",
+      period: "May 2026 - Present",
+      description: "",
+      impact: [],
+      responsibilities: [],
+      technologies: ["Python", "TypeScript", "Node.js", "LangChain", "LangGraph", "LLM Agents", "Prompt Engineering", "APIs"]
+    },
+    {
       company: "THEOSYM",
       position: "AI Engineer / Backend Developer",
       period: "Nov 2024 - January 2026",
