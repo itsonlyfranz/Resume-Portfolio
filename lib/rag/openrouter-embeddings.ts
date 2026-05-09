@@ -24,7 +24,7 @@ function getOpenRouterConfig() {
   return { apiKey, model }
 }
 
-export function normalizeVector(vector: number[]): number[] {
+function normalizeVector(vector: number[]): number[] {
   const magnitude = Math.sqrt(vector.reduce((sum, value) => sum + value * value, 0))
   if (magnitude === 0) return vector
 

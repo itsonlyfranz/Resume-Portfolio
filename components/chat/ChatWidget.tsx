@@ -41,16 +41,16 @@ export function ChatWidget() {
       {/* Floating button */}
       <Button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg z-50 hover:scale-110 transition-transform"
+        className="fixed bottom-6 right-6 z-50 size-14 rounded-full shadow-lg transition-transform hover:scale-110"
         size="icon"
         aria-label={isOpen ? "Close chat" : "Open chat"}
       >
-        {isOpen ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}
+        {isOpen ? <X className="size-5" /> : <MessageCircle className="size-5" />}
       </Button>
 
       {/* Chat popup */}
       {isOpen && (
-        <Card className="fixed bottom-24 right-6 w-[380px] h-[500px] flex flex-col shadow-2xl z-50 border-primary/20">
+        <Card className="fixed bottom-24 right-6 z-50 flex h-[500px] w-[380px] flex-col border-primary/20 shadow-2xl">
           {/* Header */}
           <div className="p-4 border-b bg-primary/5">
             <h3 className="font-semibold text-lg">Chat with AI</h3>
@@ -72,9 +72,9 @@ export function ChatWidget() {
                     ? 'bg-primary text-primary-foreground' 
                     : 'bg-muted'
                 }`}>
-                  {m.parts.map((part, i) => 
+                  {m.parts.map((part) =>
                     part.type === 'text' ? (
-                      <span key={i} className="text-sm whitespace-pre-wrap">{part.text}</span>
+                      <span key={`${m.id}-${part.text}`} className="whitespace-pre-wrap text-sm">{part.text}</span>
                     ) : null
                   )}
                 </div>
@@ -83,7 +83,7 @@ export function ChatWidget() {
             {status === 'streaming' && (
               <div className="flex justify-start">
                 <div className="bg-muted p-3 rounded-lg">
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="size-4 animate-spin" />
                 </div>
               </div>
             )}
@@ -104,7 +104,7 @@ export function ChatWidget() {
               size="icon"
               disabled={status !== 'ready' || !input.trim()}
             >
-              <Send className="h-4 w-4" />
+              <Send className="size-4" />
             </Button>
           </form>
         </Card>

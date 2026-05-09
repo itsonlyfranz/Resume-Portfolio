@@ -31,7 +31,7 @@ export function Certifications() {
   return (
     <section id="certifications" className="rounded-xl border bg-card p-4">
       <div className="mb-4 flex items-center gap-2">
-        <Award className="h-4 w-4 text-primary" />
+        <Award className="size-4 text-primary" />
         <h2 className="resume-heading">Certifications</h2>
       </div>
 
@@ -55,7 +55,7 @@ export function Certifications() {
               className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
             >
               View Credential
-              <ExternalLink className="h-3 w-3" />
+              <ExternalLink className="size-3" />
             </a>
           </div>
         ))}

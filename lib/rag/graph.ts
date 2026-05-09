@@ -120,10 +120,16 @@ async function rerankNode(state: typeof RagAnnotation.State) {
 
   const ids = parseRerankedIds(messageContentToText(response.content), state.candidates)
   const candidateById = new Map(state.candidates.map((candidate) => [candidate.id, candidate]))
-  const contexts = ids
-    .map((id) => candidateById.get(id))
-    .filter((candidate): candidate is ScoredContentChunk => Boolean(candidate))
-    .slice(0, RERANK_LIMIT)
+  const contexts: ScoredContentChunk[] = []
+
+  for (const id of ids) {
+    const candidate = candidateById.get(id)
+    if (candidate) {
+      contexts.push(candidate)
+    }
+
+    if (contexts.length === RERANK_LIMIT) break
+  }
 
   return {
     contexts: contexts.length > 0 ? contexts : state.candidates.slice(0, RERANK_LIMIT),
@@ -166,7 +172,7 @@ const ragGraph = new StateGraph(RagAnnotation)
   .addEdge("answer", END)
   .compile()
 
-export async function buildGroundedAnswerMessages({
+async function buildGroundedAnswerMessages({
   question,
   history,
 }: Pick<RagGraphState, "question" | "history">): Promise<BaseMessage[]> {

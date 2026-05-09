@@ -15,9 +15,13 @@ export function Projects({ projects }: ProjectsProps) {
   const [activeFilter, setActiveFilter] = React.useState("All")
 
   const categories = React.useMemo(() => {
-    const projectCategories = projects
-      .map((project) => project.category)
-      .filter((category): category is string => Boolean(category))
+    const projectCategories = projects.reduce<string[]>((categories, project) => {
+      if (project.category) {
+        categories.push(project.category)
+      }
+
+      return categories
+    }, [])
 
     return ["All", ...Array.from(new Set(projectCategories))]
   }, [projects])
@@ -105,8 +109,8 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
       <CardContent className="flex-1 space-y-3 p-4 pt-2">
         {project.highlights && project.highlights.length > 0 && (
           <ul className="space-y-1.5 text-xs leading-5">
-            {project.highlights.slice(0, 3).map((highlight, idx) => (
-              <li key={idx} className="flex items-start">
+            {project.highlights.slice(0, 3).map((highlight) => (
+              <li key={highlight} className="flex items-start">
                 <span className="text-primary mr-2 shrink-0">▹</span>
                 <span className="text-muted-foreground">{highlight}</span>
               </li>
@@ -131,7 +135,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
         {project.liveUrl && (
           <Button asChild variant="default" size="sm" className="h-8 flex-1 text-xs">
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="mr-2 h-4 w-4" />
+              <ExternalLink className="mr-2 size-4" />
               View Live
             </a>
           </Button>
@@ -139,7 +143,7 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
         {project.githubUrl && (
           <Button asChild variant="outline" size="sm" className={project.liveUrl ? "h-8 flex-1 text-xs" : "h-8 w-full text-xs"}>
             <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-              <Github className="mr-2 h-4 w-4" />
+              <Github className="mr-2 size-4" />
               View Code
             </a>
           </Button>

@@ -74,8 +74,10 @@ function normalizeWhitespace(value: string): string {
 function splitIntoSections(markdown: string): string[] {
   const sections = markdown
     .split(/\n(?=#{1,3}\s)/g)
-    .map((section) => normalizeWhitespace(section))
-    .filter(Boolean)
+    .flatMap((section) => {
+      const normalized = normalizeWhitespace(section)
+      return normalized ? [normalized] : []
+    })
 
   return sections.length > 0 ? sections : [normalizeWhitespace(markdown)]
 }
@@ -95,7 +97,7 @@ export function loadContentChunks(): ContentChunk[] {
     const source = createSource(doc)
     const summary = getDocumentSummary(doc).filter(Boolean).join("\n")
     const sections = splitIntoSections(doc.body.raw)
-    const chunks = [summary, ...sections].filter(Boolean)
+    const chunks = [summary, ...sections].flatMap((text) => (text ? [text] : []))
 
     return chunks.map((text, index) => ({
       id: `${doc._id}#${index}`,

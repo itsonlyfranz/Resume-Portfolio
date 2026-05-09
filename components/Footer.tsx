@@ -18,7 +18,7 @@ export function Footer() {
             © {currentYear} Señor Roberto Francisco Pablo. All rights reserved.
           </p>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-x-4">
             {socialLinks.map((link) => {
               const Icon = link.icon
               return (
@@ -29,7 +29,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  <Icon className="h-5 w-5" />
+                  <Icon className="size-5" />
                   <span className="sr-only">{link.name}</span>
                 </Link>
               )

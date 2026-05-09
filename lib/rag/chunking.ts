@@ -20,7 +20,7 @@ async function buildRuntimeIndex(): Promise<EmbeddedContentChunk[]> {
   }))
 }
 
-export async function getRuntimeIndex(): Promise<EmbeddedContentChunk[]> {
+async function getRuntimeIndex(): Promise<EmbeddedContentChunk[]> {
   indexPromise ??= buildRuntimeIndex()
   return indexPromise
 }
@@ -33,6 +33,6 @@ export async function retrieveRelevantChunks(question: string): Promise<ScoredCo
       ...chunk,
       score: cosineSimilarity(queryEmbedding, embedding),
     }))
-    .sort((a, b) => b.score - a.score)
+    .toSorted((a, b) => b.score - a.score)
     .slice(0, RETRIEVAL_LIMIT)
 }

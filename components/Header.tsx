@@ -6,18 +6,28 @@ import { ThemeToggle } from "./theme-toggle"
 import { Button } from "./ui/button"
 import { Menu, X } from "lucide-react"
 
+const navItems = [
+  { name: "About", href: "#about" },
+  { name: "Work", href: "#experience" },
+  { name: "Projects", href: "#projects" },
+  { name: "Skills", href: "#skills" },
+  { name: "Contact", href: "#contact" },
+]
+
+interface HeaderScrollState {
+  activeSection: string
+  scrollProgress: number
+}
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
-  const [activeSection, setActiveSection] = React.useState("")
-  const [scrollProgress, setScrollProgress] = React.useState(0)
-
-  const navItems = [
-    { name: "About", href: "#about" },
-    { name: "Work", href: "#experience" },
-    { name: "Projects", href: "#projects" },
-    { name: "Skills", href: "#skills" },
-    { name: "Contact", href: "#contact" },
-  ]
+  const [{ activeSection, scrollProgress }, setScrollState] = React.useReducer(
+    (_state: HeaderScrollState, nextState: HeaderScrollState) => nextState,
+    {
+      activeSection: "",
+      scrollProgress: 0,
+    }
+  )
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -27,30 +37,36 @@ export function Header() {
       const scrollTop = window.scrollY
       const scrollableHeight = documentHeight - windowHeight
       const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0
-      setScrollProgress(Math.min(100, Math.max(0, progress)))
+      const nextScrollProgress = Math.min(100, Math.max(0, progress))
 
       // Update active section
       const sections = navItems.map(item => item.href.substring(1))
       const scrollPosition = window.scrollY + 100
       const aboutEl = document.getElementById("about")
+      let nextActiveSection = ""
 
       if (aboutEl && scrollPosition < aboutEl.offsetTop) {
-        setActiveSection("#about")
+        nextActiveSection = "#about"
       } else {
         for (const section of sections) {
           const element = document.getElementById(section)
           if (element) {
             const { offsetTop, offsetHeight } = element
             if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-              setActiveSection(`#${section}`)
+              nextActiveSection = `#${section}`
               break
             }
           }
         }
       }
+
+      setScrollState({
+        activeSection: nextActiveSection,
+        scrollProgress: nextScrollProgress,
+      })
     }
 
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -76,7 +92,7 @@ export function Header() {
       </div>
 
       <nav className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 md:px-6">
-        <Link href="/" className="flex items-center space-x-2">
+        <Link href="/" className="flex items-center gap-x-2">
           <span className="text-sm font-semibold tracking-tight">Señor Roberto Francisco Pablo</span>
         </Link>
 
@@ -100,20 +116,20 @@ export function Header() {
           ))}
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-x-2">
           <ThemeToggle />
           
           {/* Mobile menu button */}
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden h-9 w-9"
+            className="size-9 md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? (
-              <X className="h-5 w-5" />
+              <X className="size-5" />
             ) : (
-              <Menu className="h-5 w-5" />
+              <Menu className="size-5" />
             )}
             <span className="sr-only">Toggle menu</span>
           </Button>
@@ -123,7 +139,7 @@ export function Header() {
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t">
-          <div className="mx-auto max-w-5xl space-y-3 px-4 py-4">
+          <div className="mx-auto max-w-5xl space-y-3 p-4">
             {navItems.map((item) => (
               <a
                 key={item.name}

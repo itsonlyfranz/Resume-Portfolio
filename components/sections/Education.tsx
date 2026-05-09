@@ -20,7 +20,7 @@ export function Education() {
   return (
     <section id="education" className="rounded-xl border bg-card p-4">
       <div className="mb-4 flex items-center gap-2">
-        <GraduationCap className="h-4 w-4 text-primary" />
+        <GraduationCap className="size-4 text-primary" />
         <h2 className="resume-heading">Education</h2>
       </div>
 

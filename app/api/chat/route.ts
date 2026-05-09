@@ -20,11 +20,10 @@ function formatConversationHistory(messages: UIMessage[]): string {
   return messages
     .slice(0, -1)
     .slice(-6)
-    .map((message) => {
+    .flatMap((message) => {
       const text = getMessageText(message)
-      return text ? `${message.role}: ${text}` : ""
+      return text ? [`${message.role}: ${text}`] : []
     })
-    .filter(Boolean)
     .join("\n")
 }
 

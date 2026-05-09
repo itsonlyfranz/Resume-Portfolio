@@ -36,7 +36,7 @@ export function Experience() {
   return (
     <section id="experience" className="rounded-xl border bg-card p-4">
       <div className="mb-4 flex items-center gap-2">
-        <Briefcase className="h-4 w-4 text-primary" />
+        <Briefcase className="size-4 text-primary" />
         <h2 className="resume-heading">Experience</h2>
       </div>
 
@@ -44,7 +44,7 @@ export function Experience() {
         {experiences.map((exp) => (
           <div key={`${exp.company}-${exp.position}`} className="border-l border-border pl-4">
             <div className="relative">
-              <span className="absolute -left-[21px] top-1.5 h-2.5 w-2.5 rounded-full bg-primary" />
+              <span className="absolute -left-[21px] top-1.5 size-2.5 rounded-full bg-primary" />
               <h3 className="text-sm font-semibold leading-5">{exp.position}</h3>
               <div className="mt-1 flex items-center justify-between gap-3 text-xs text-muted-foreground">
                 <span>{exp.company}</span>

@@ -4,7 +4,6 @@ import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Github, Linkedin, Mail, MapPin, Send } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -56,7 +55,7 @@ export function Contact() {
       } else {
         throw new Error("Failed to send message")
       }
-    } catch (error) {
+    } catch {
       setSubmitStatus({
         type: "error",
         message: "Failed to send message. Please try again or contact me directly.",
@@ -91,7 +90,7 @@ export function Contact() {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Name *</Label>
+                  <label className="text-sm font-medium leading-none" htmlFor="name">Name *</label>
                   <Input
                     id="name"
                     placeholder="Your name"
@@ -104,7 +103,7 @@ export function Contact() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email *</Label>
+                  <label className="text-sm font-medium leading-none" htmlFor="email">Email *</label>
                   <Input
                     id="email"
                     type="email"
@@ -119,7 +118,7 @@ export function Contact() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="subject">Subject</Label>
+                <label className="text-sm font-medium leading-none" htmlFor="subject">Subject</label>
                 <Input
                   id="subject"
                   placeholder="What can I help with?"
@@ -128,7 +127,7 @@ export function Contact() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="message">Message *</Label>
+                <label className="text-sm font-medium leading-none" htmlFor="message">Message *</label>
                 <Textarea
                   id="message"
                   placeholder="Project details, goals, timeline..."
@@ -155,7 +154,7 @@ export function Contact() {
 
               <Button type="submit" disabled={isSubmitting} size="sm">
                 {isSubmitting ? "Sending..." : "Send Message"}
-                <Send className="h-4 w-4" />
+                <Send className="size-4" />
               </Button>
             </form>
           </CardContent>
@@ -164,7 +163,7 @@ export function Contact() {
         <Card>
           <CardHeader className="p-4 pb-2">
             <CardTitle className="flex items-center gap-2 text-base">
-              <Mail className="h-4 w-4 text-primary" />
+              <Mail className="size-4 text-primary" />
               Direct links
             </CardTitle>
           </CardHeader>
@@ -173,7 +172,7 @@ export function Contact() {
               const Icon = info.icon
               const content = (
                 <div className="flex items-start gap-3">
-                  <Icon className="mt-0.5 h-4 w-4 text-primary" />
+                  <Icon className="mt-0.5 size-4 text-primary" />
                   <div>
                     <p className="text-sm font-medium">{info.label}</p>
                     <p className="text-xs text-muted-foreground">{info.value}</p>

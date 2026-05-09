@@ -1,3 +1,5 @@
+import type { Metadata } from "next"
+
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 import { Hero } from "@/components/sections/Hero"
@@ -10,8 +12,13 @@ import { Certifications } from "@/components/sections/Certifications"
 import { Contact } from "@/components/sections/Contact"
 import { allProjects } from "contentlayer/generated"
 
+export const metadata: Metadata = {
+  title: "Portfolio",
+  description: "Selected AI engineering, full-stack, backend, and automation work by Señor Roberto Francisco Pablo.",
+}
+
 export default function Home() {
-  const sortedProjects = [...allProjects].sort((a, b) => a.order - b.order)
+  const sortedProjects = allProjects.toSorted((a, b) => a.order - b.order)
 
   return (
     <div className="min-h-screen">
