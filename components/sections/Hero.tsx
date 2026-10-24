@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Mail, MapPin } from "lucide-react"
+import { Github, Linkedin, Mail, MapPin } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 
@@ -51,10 +51,10 @@ export function Hero() {
               Baguio City, Philippines
             </p>
             <p className="text-base font-medium text-foreground md:text-lg">
-              Full Stack Developer \ AI Engineer \ Software Engineer
+              AI Engineer
             </p>
             <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-              I build AI-powered full-stack applications, LLM-based agents, automation workflows, and product features that connect clean user experiences with reliable backend systems.
+              I build LangGraph agents and RAG systems, such as a citation-grounded agent that removes any claim it cannot trace to a verbatim source quote, backed by 68 offline tests.
             </p>
           </motion.div>
 
@@ -71,6 +71,22 @@ export function Hero() {
               <a href="mailto:robertopablo13.rp@gmail.com">
                 <Mail className="h-4 w-4" />
                 Send Email
+              </a>
+            </Button>
+            <Button size="sm" variant="outline" asChild>
+              <a href="https://github.com/itsonlyfranz" target="_blank" rel="noopener noreferrer">
+                <Github className="h-4 w-4" />
+                GitHub
+              </a>
+            </Button>
+            <Button size="sm" variant="outline" asChild>
+              <a
+                href="https://linkedin.com/in/señor-roberto-francisco-pablo-b748581ba"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Linkedin className="h-4 w-4" />
+                LinkedIn
               </a>
             </Button>
           </motion.div>

@@ -14,7 +14,7 @@ technologies:
     "pytest",
   ]
 liveUrl: ""
-githubUrl: ""
+githubUrl: "https://github.com/itsonlyfranz/memory-conversational-agent"
 highlights:
   - "Combines a verbatim short-term buffer with long-term memory, where durable facts are extracted by the LLM after each turn, embedded, and recalled in later sessions"
   - "Keeps context bounded - in a measured 100-turn conversation the raw transcript is about 2,290 estimated tokens while the buffer never exceeds about 393, with older turns folded into a rolling summary"
@@ -24,7 +24,7 @@ highlights:
   - "Runs each turn as a LangGraph StateGraph with parallel buffer-update and extraction branches, a SQLite checkpointer for resumable sessions, and a recursion limit"
 date: "2026"
 category: "AI Agents"
-order: 9
+order: 6
 ---
 
 Memory-Enabled Conversational Agent is a LangGraph agent that remembers its users: a token-budgeted short-term buffer, long-term vector recall, LLM-driven context compression, and a multi-signal relevance scorer, all running on local files with Claude as the model and no external services.

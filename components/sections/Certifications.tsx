@@ -1,30 +1,19 @@
 "use client"
 
 import { Badge } from "@/components/ui/badge"
-import { Award, ExternalLink } from "lucide-react"
+import { Award } from "lucide-react"
 
 export function Certifications() {
   const certifications = [
     {
-      name: "Blockchain",
-      issuer: "Certification Provider",
-      date: "2024",
-      credentialId: "Blockchain-Cert",
-      link: "#",
-    },
-    {
       name: "Technical Support Fundamentals",
       issuer: "Google",
       date: "2024",
-      credentialId: "Google-TSF",
-      link: "https://www.coursera.org/",
     },
     {
       name: "The Bits and Bytes of Computer Networking",
       issuer: "Google",
       date: "2024",
-      credentialId: "Google-Network",
-      link: "https://www.coursera.org/",
     }
   ]
 
@@ -45,18 +34,6 @@ export function Certifications() {
               </div>
               <Badge variant="secondary" className="text-[10px]">{cert.date}</Badge>
             </div>
-            <p className="mt-2 text-xs text-muted-foreground">
-              Credential ID: <span className="font-mono">{cert.credentialId}</span>
-            </p>
-            <a
-              href={cert.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
-            >
-              View Credential
-              <ExternalLink className="h-3 w-3" />
-            </a>
           </div>
         ))}
       </div>

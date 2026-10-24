@@ -1,7 +1,7 @@
 ---
 title: "Multi-Tool Orchestrator Agent"
 description: "Coordinating complex workflows: plans goals as capability DAGs and runs independent tool steps in parallel."
-featured: false
+featured: true
 image: "/projects/multi-tool-orchestrator-placeholder.png"
 technologies:
   [
@@ -14,7 +14,7 @@ technologies:
     "pytest",
   ]
 liveUrl: ""
-githubUrl: ""
+githubUrl: "https://github.com/itsonlyfranz/multi-tool-orchestrator"
 highlights:
   - "Plans goals as capability DAGs and fans out one parallel LangGraph Send branch per ready step - in the demo, 8 independent searches ran in 0.26 s wall-clock against 2.02 s of summed step time, a 7.8x speedup (local run)"
   - "Routes by capability rather than tool name over a dynamic registry with hot-swap, plugins and a circuit breaker, ranking providers by priority, observed reliability, trust, cost and latency"
@@ -24,7 +24,7 @@ highlights:
   - "Runs 97 tests with no network or API key, using a scripted fake LLM and deterministic local tools"
 date: "2026"
 category: "AI Agents"
-order: 8
+order: 2
 ---
 
 Multi-Tool Orchestrator is a LangGraph agent for coordinating complex workflows: it plans a goal as a capability DAG, routes each step to the best permitted tool from a live registry, runs independent steps in parallel, and reconciles conflicts between tools.

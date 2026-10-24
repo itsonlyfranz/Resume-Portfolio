@@ -9,19 +9,16 @@ export function About() {
           href="#contact"
           className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium text-primary transition-colors hover:bg-primary/15"
         >
-          Available for AI, full-stack, and mobile projects
+          Open to full-time AI engineer roles
         </a>
       </div>
 
       <div className="space-y-4 text-sm leading-6 text-muted-foreground">
         <p>
-          I&apos;m an AI Engineer and full-stack developer who builds AI-powered applications from idea to deployment. I create
-          LLM-based agents, LangChain-powered workflows, automation systems, and product features that combine
-          clean user experiences with reliable backend architecture.
+          I&apos;m an AI Engineer currently at Shiftcare. I build LLM-based agents and RAG workflows, with a focus on making them reliable: validated outputs, grounded citations, bounded loops, and human approval where it matters.
         </p>
         <p>
-          My recent work includes a LangGraph-based insurance assistant with RAG retrieval and multi-step quote orchestration,
-          along with mobile and web projects that connect AI, data, APIs, and user-facing features into maintainable systems.
+          My recent work includes seven open-source LangGraph agents (structured output, citation-grounded RAG, ReAct planning, multi-tool orchestration, memory, human-in-the-loop approval, and cost-aware routing), plus a RAG insurance assistant and full-stack and mobile projects.
         </p>
         <p>
           I focus on clean boundaries between UI, storage, services, and AI providers so products stay maintainable as they
