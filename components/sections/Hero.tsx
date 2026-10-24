@@ -51,7 +51,7 @@ export function Hero() {
               Baguio City, Philippines
             </p>
             <p className="text-base font-medium text-foreground md:text-lg">
-              AI Engineer · Software Engineer · Full Stack Developer
+              AI Engineer · Full-Stack Developer
             </p>
             <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
               I build AI-powered full-stack applications, LLM-based agents, automation workflows, and product features that connect clean user experiences with reliable backend systems.
