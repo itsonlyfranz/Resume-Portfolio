@@ -15,14 +15,13 @@ export function About() {
 
       <div className="space-y-4 text-sm leading-6 text-muted-foreground">
         <p>
-          I&apos;m an AI Engineer currently at Shiftcare. I build LLM-based agents and RAG workflows, with a focus on making them reliable: validated outputs, grounded citations, bounded loops, and human approval where it matters.
+          I&apos;m an AI Engineer and full-stack developer at Shiftcare, building AI-powered applications from idea to deployment. Over the past two years at THEOSYM and Shiftcare, I&apos;ve shipped LLM-based agents, MCP integrations, and n8n automation pipelines into production systems through Python and Node.js APIs.
         </p>
         <p>
-          My recent work includes seven open-source LangGraph agents (structured output, citation-grounded RAG, ReAct planning, multi-tool orchestration, memory, human-in-the-loop approval, and cost-aware routing), plus a RAG insurance assistant and full-stack and mobile projects.
+          I care about making AI reliable enough to ship: validated outputs, grounded answers, and clean boundaries between UI, storage, services, and AI providers, so products stay maintainable as they grow.
         </p>
         <p>
-          I focus on clean boundaries between UI, storage, services, and AI providers so products stay maintainable as they
-          grow.
+          Based in Baguio City, Philippines. Open to full-time AI engineer roles.
         </p>
       </div>
     </section>
