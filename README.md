@@ -1,273 +1,50 @@
-# Portfolio Website
+# Francisco Pablo — AI Engineer Portfolio
 
-A modern, responsive portfolio website built with Next.js 16, React, TypeScript, and Tailwind CSS.
+Personal portfolio for Señor Roberto Francisco Pablo, an AI engineer working on LLM agents, backend systems and automation.
 
-## Features
+**Live:** https://francisco-pablo-portfolio.vercel.app
 
-- ✨ Modern and clean design with tech-focused aesthetic
-- 🌓 Dark/Light mode toggle with persistent theme
-- 📱 Fully responsive (mobile, tablet, desktop)
-- ⚡ Fast and optimized performance
-- 🎨 Smooth animations with Framer Motion
-- 📝 MDX content management with Contentlayer
-- 📧 Contact form with email integration
-- 🔍 SEO optimized with metadata and structured data
-- 📊 Analytics integration (Vercel Analytics)
-- ♿ Accessibility compliant
+![Portfolio home page](docs/screenshot.png)
 
-## Tech Stack
+## Stack
 
-- **Framework**: Next.js 16 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4
-- **UI Components**: Shadcn UI
-- **Animations**: Framer Motion
-- **Content**: Contentlayer (MDX)
-- **Forms**: React Hook Form + Zod
-- **Email**: Resend
-- **Analytics**: Vercel Analytics
-- **Deployment**: Vercel
+- Next.js 16 (App Router), React 19, TypeScript
+- Tailwind CSS v4, Radix UI primitives, Framer Motion
+- Content as MDX via Contentlayer (`content/`)
+- RAG chat: LangGraph + Groq (chat) + OpenRouter (embeddings)
+- Contact form via Resend; analytics via Vercel Analytics
+- Deployed on Vercel
 
-## Getting Started
+## How the RAG chat works
 
-### Prerequisites
+The chat widget answers questions about my background using only the site's own content.
 
-- Node.js 20+ and npm
+1. On first request, `lib/rag/content-docs.ts` splits the MDX content (projects, experience, education and so on) into chunks, and `lib/rag/openrouter-embeddings.ts` embeds them through OpenRouter. The index is held in memory.
+2. Each question is embedded and the chunks are ranked by cosine similarity (`lib/rag/chunking.ts`).
+3. A LangGraph pipeline (`lib/rag/graph.ts`) reranks the top candidates, then streams a grounded answer from a Groq chat model using the retrieved chunks as context.
+4. `app/api/chat/route.ts` exposes the pipeline to the widget.
 
-### Installation
+## Run locally
 
-1. Clone the repository:
-```bash
-git clone <your-repo-url>
-cd Resume
-```
+Requires Node.js 20+.
 
-2. Install dependencies:
 ```bash
 npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm run lint
 ```
 
-3. Create a `.env` file (optional, for contact form):
-```bash
-cp .env.example .env
-```
+Create `.env.local` with the variables you need:
 
-4. Run the development server:
-```bash
-npm run dev
-```
+| Variable | Used for |
+| --- | --- |
+| `GROQ_API_KEY`, `GROQ_CHAT_MODEL` | RAG chat model (required for chat) |
+| `OPENROUTER_API_KEY`, `OPENROUTER_EMBEDDING_MODEL` | RAG chat embeddings (required for chat) |
+| `RESEND_API_KEY`, `CONTACT_EMAIL` | Contact form email delivery (optional) |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL for metadata, sitemap and OG image (defaults to the live URL) |
+| `NEXT_PUBLIC_GITHUB_USERNAME` | GitHub activity section (optional) |
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+## Deploy
 
-## Project Structure
-
-```
-├── app/                    # Next.js app directory
-│   ├── api/               # API routes
-│   │   └── contact/       # Contact form endpoint
-│   ├── layout.tsx         # Root layout with theme provider
-│   ├── page.tsx           # Home page
-│   ├── globals.css        # Global styles
-│   ├── robots.ts          # Robots.txt configuration
-│   └── sitemap.ts         # Sitemap configuration
-├── components/            # React components
-│   ├── sections/          # Page sections
-│   │   ├── Hero.tsx
-│   │   ├── About.tsx
-│   │   ├── Experience.tsx
-│   │   ├── Skills.tsx
-│   │   ├── Education.tsx
-│   │   ├── Certifications.tsx
-│   │   └── Contact.tsx
-│   ├── ui/                # UI components (Shadcn)
-│   ├── Header.tsx         # Navigation header
-│   ├── Footer.tsx         # Footer
-│   ├── theme-provider.tsx # Theme context provider
-│   └── theme-toggle.tsx   # Dark/light mode toggle
-├── content/               # MDX content files
-│   ├── experience/        # Work experience
-│   ├── education/         # Education history
-│   └── certifications/    # Certifications
-├── lib/                   # Utility functions
-│   └── utils.ts
-├── public/                # Static assets
-│   └── resume.pdf         # Downloadable resume
-└── contentlayer.config.ts # Contentlayer configuration
-```
-
-## Customization
-
-### Personal Information
-
-1. **Update content in components**:
-   - Edit `components/sections/Hero.tsx` for your name and tagline
-   - Update `components/sections/About.tsx` with your bio
-   - Modify `components/sections/Skills.tsx` with your skills
-   - Edit `components/Footer.tsx` for social links
-
-2. **Update MDX content**:
-   - Add/edit files in `content/experience/` for work history
-   - Add/edit files in `content/education/` for education
-   - Add/edit files in `content/certifications/` for certifications
-
-3. **Replace resume PDF**:
-   - Replace `public/resume.pdf` with your actual resume
-
-4. **Update metadata**:
-   - Edit `app/layout.tsx` for SEO metadata
-   - Update `components/StructuredData.tsx` for structured data
-
-### Styling
-
-- Colors: Edit `app/globals.css` CSS variables
-- Components: Modify files in `components/` directory
-- Tailwind: Extend configuration if needed (Tailwind v4 uses CSS)
-
-## Content Management
-
-### Adding Work Experience
-
-Create a new MDX file in `content/experience/`:
-
-```mdx
----
-company: "Company Name"
-position: "Your Position"
-startDate: "2023-01"
-endDate: "Present"
-description: "Brief description of your role"
-technologies: ["React", "Node.js", "AWS"]
-order: 1
----
-
-## Key Achievements
-
-- Achievement 1
-- Achievement 2
-
-## Responsibilities
-
-- Responsibility 1
-- Responsibility 2
-```
-
-### Adding Education
-
-Create a new MDX file in `content/education/`:
-
-```mdx
----
-degree: "Your Degree"
-institution: "University Name"
-startDate: "2018"
-endDate: "2022"
-description: "Brief description"
-order: 1
----
-
-## Highlights
-
-- Highlight 1
-- Highlight 2
-```
-
-### Adding Certifications
-
-Create a new MDX file in `content/certifications/`:
-
-```mdx
----
-name: "Certification Name"
-issuer: "Issuing Organization"
-date: "2023"
-credentialId: "CERT-12345"
-link: "https://verify-link.com"
-order: 1
----
-
-Brief description of the certification.
-```
-
-## Environment Variables
-
-Create a `.env` file with the following variables:
-
-```env
-# Email Configuration (optional - for contact form)
-RESEND_API_KEY=your_resend_api_key
-CONTACT_EMAIL=your.email@example.com
-
-# Site URL
-NEXT_PUBLIC_SITE_URL=https://yourportfolio.com
-
-# Content-only RAG chat
-OPENROUTER_API_KEY=your_openrouter_api_key
-OPENROUTER_EMBEDDING_MODEL=openai/text-embedding-3-small
-GROQ_API_KEY=your_groq_api_key
-GROQ_CHAT_MODEL=llama-3.3-70b-versatile
-```
-
-### Setting up Email (Optional)
-
-1. Sign up for [Resend](https://resend.com)
-2. Get your API key
-3. Add API key to `.env` file
-4. Add your contact email to `.env` file
-
-If you don't set up email, form submissions will be logged to the console in development.
-
-### Setting up RAG Chat
-
-1. Add `OPENROUTER_API_KEY` and `OPENROUTER_EMBEDDING_MODEL` for runtime embeddings.
-2. Add `GROQ_API_KEY` and `GROQ_CHAT_MODEL` for reranking and answer generation.
-3. Configure the same variables in Vercel so `/api/chat` can answer from the MDX content.
-
-## Deployment
-
-### Deploy to Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Visit [Vercel](https://vercel.com)
-3. Import your repository
-4. Configure environment variables
-5. Deploy!
-
-### Build Locally
-
-```bash
-npm run build
-npm start
-```
-
-## Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm run lint` - Run ESLint
-
-## Performance
-
-- Lighthouse score: 95+
-- First Contentful Paint: < 1.5s
-- Time to Interactive: < 3s
-- Fully responsive and mobile-optimized
-
-## Browser Support
-
-- Chrome (last 2 versions)
-- Firefox (last 2 versions)
-- Safari (last 2 versions)
-- Edge (last 2 versions)
-
-## License
-
-MIT License - feel free to use this for your own portfolio!
-
-## Support
-
-For issues or questions, please open an issue on GitHub.
-
----
-
-Built with ❤️ using Next.js and React
+Import the repo in Vercel, add the variables above under Settings → Environment Variables, and deploy. No other configuration is needed.
