@@ -57,10 +57,9 @@ Updated with:
 - **Focus**: Backend development, AI integration, system architecture
 
 ### 7. Certifications Section
-Added your 3 certifications:
-1. **Blockchain** - Certification Provider (2024)
-2. **Technical Support Fundamentals** - Google (2024)
-3. **The Bits and Bytes of Computer Networking** - Google (2024)
+Added your 2 certifications:
+1. **Technical Support Fundamentals** - Google (2024)
+2. **The Bits and Bytes of Computer Networking** - Google (2024)
 
 ### 8. Contact Section
 Updated with:
@@ -127,7 +126,6 @@ The download button is already working - it just needs your actual resume PDF.
 
 ### Optional Enhancements
 You might want to add:
-- Your GitHub profile link (if you have one)
 - A professional photo/avatar in the About section
 - Project portfolio section (if you have notable projects)
 - Blog or articles section (if you write)

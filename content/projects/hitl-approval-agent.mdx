@@ -1,7 +1,7 @@
 ---
 title: "Human-in-the-Loop Approval Agent"
 description: "Safe, compliant systems: pauses for human approval when unsure, with a tamper-evident audit log."
-featured: false
+featured: true
 image: "/projects/hitl-approval-agent-placeholder.png"
 technologies:
   [
@@ -14,7 +14,7 @@ technologies:
     "pytest",
   ]
 liveUrl: ""
-githubUrl: ""
+githubUrl: "https://github.com/itsonlyfranz/hitl-approval-agent"
 highlights:
   - "Gates every action on six uncertainty signals - low confidence, missing info, inconsistent samples, unparseable output, LLM error, high-value policy - and fails closed"
   - "Pauses with a native LangGraph interrupt checkpointed to SQLite and resumed with Command(resume=...), using durable JSON tickets so no side effect happens while a request waits and a pending ticket survives a restart"
@@ -24,7 +24,7 @@ highlights:
   - "Runs the 67-test suite offline with a fake client and an injected clock"
 date: "2026"
 category: "AI Agents"
-order: 10
+order: 3
 ---
 
 Human-in-the-Loop Approval Agent decides on refund requests only when it is sure. When it is not, it pauses, asks a human a specific question, validates the answer, and resumes, with every step written to a tamper-evident audit log.

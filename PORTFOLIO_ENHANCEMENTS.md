@@ -14,7 +14,7 @@ Successfully implemented three major enhancements to elevate the portfolio's vis
 
 - **New Section**: "02. What I've Built" between About and Experience
 - **Grid Layout**: Featured projects in 2-column, regular projects in 3-column grid
-- **Filter Tabs**: "All", "AI/ML", "Full Stack", "Automation" categories
+- **Filter Tabs**: "All" plus one chip per distinct `category` value in `content/projects/*.mdx` (currently "AI Agents" and "Full-stack & mobile")
 - **Interactive Cards**: Hover effects with image zoom and gradient overlays
 - **Action Buttons**: "View Live" and "View Code" links for each project
 
@@ -266,7 +266,7 @@ If deploying to Vercel, add environment variable:
 
 ### Projects Section
 
-- **Filter by Category**: Toggle between All, AI/ML, Full Stack, Automation
+- **Filter by Category**: Toggle between All and the project `category` values from `content/projects/`
 - **Featured Projects**: Larger cards for highlighted work
 - **Tech Stack Badges**: Visual technology indicators with hover effects
 - **Dual CTAs**: Both "View Live" and "View Code" buttons

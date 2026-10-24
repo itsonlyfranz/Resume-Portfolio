@@ -1,7 +1,7 @@
 ---
 title: "RAG Agent with Citation Grounding"
 description: "Preventing hallucinations: a RAG agent that verifies every claim against a verbatim source quote."
-featured: false
+featured: true
 image: "/projects/rag-citation-agent-placeholder.png"
 technologies:
   [
@@ -14,7 +14,7 @@ technologies:
     "pytest",
   ]
 liveUrl: ""
-githubUrl: ""
+githubUrl: "https://github.com/itsonlyfranz/rag-citation-agent"
 highlights:
   - "Requires each generated claim to carry a verbatim quote from a retrieved source - claims with unknown sources, fabricated quotes, unsupported terms, or numbers absent from the quote are removed before the user sees them"
   - "Scores confidence from verifiable signals (trust x verification x (retrieval + support) / 2) instead of the model's self-reported confidence - in the demo, one invented claim out of two drops an answer to 0.42 and flags it"
@@ -24,7 +24,7 @@ highlights:
   - "Runs all 68 tests and the 4-scenario demo offline with no network or API key"
 date: "2026"
 category: "AI Agents"
-order: 6
+order: 1
 ---
 
 RAG Agent with Citation Grounding treats the model's output as untrusted: every claim is verified against the retrieved text before it reaches the user, and a claim that cannot be traced to a verbatim quote in a real source is removed. The answer is then scored, flagged, and, if weak, retried against search results.

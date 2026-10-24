@@ -13,7 +13,7 @@ technologies:
     "pytest",
   ]
 liveUrl: ""
-githubUrl: ""
+githubUrl: "https://github.com/itsonlyfranz/structured-output-agent"
 highlights:
   - "Parses and validates every model reply against a Pydantic schema - invalid output is never returned, only retried or raised as RetriesExhausted"
   - "Feeds the rejected reply and exact field errors back on retry - in the offline demo, a non-JSON reply and a schema-violating reply (2 field errors) are fixed on attempt 3"
@@ -23,7 +23,7 @@ highlights:
   - "Put the LLM behind a one-method interface so all 36 tests run offline in about a second with a scripted fake client"
 date: "2026"
 category: "AI Agents"
-order: 5
+order: 4
 ---
 
 Structured Output Agent is an agent harness for making LLMs reliable instead of random: model output is forced into Pydantic schemas, every tool call and tool result is validated, and each failure is retried with targeted feedback and recorded in an audit log.

@@ -13,7 +13,7 @@ technologies:
     "pytest",
   ]
 liveUrl: ""
-githubUrl: ""
+githubUrl: "https://github.com/itsonlyfranz/cost-aware-router"
 highlights:
   - "Cut cost 43.7% in the bundled demo (simulated models, 36 tasks): routed cost $0.0646 vs $0.1148 always-premium, with 14% of tasks escalating"
   - "Scores prompt complexity with a zero-cost heuristic (length, reasoning keywords, code, step count) to pick a starting tier from fast, balanced or premium with no LLM call"
@@ -23,7 +23,7 @@ highlights:
   - "Built the flow as a LangGraph StateGraph with typed state, five nodes, conditional escalate/exit edges, and an opt-in checkpointer - 54 offline tests pass"
 date: "2026"
 category: "AI Agents"
-order: 11
+order: 7
 ---
 
 Cost-Aware Agent Router is built on the premise that most agent traffic doesn't need the most expensive model: it routes each task to the cheapest model that can handle it, stops as soon as the answer is confident, and caps spend per task. The 43.7% figure comes from the bundled demo with simulated models, so it illustrates the mechanism rather than a production saving.
