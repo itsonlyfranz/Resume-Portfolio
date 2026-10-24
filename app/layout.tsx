@@ -39,7 +39,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Señor Roberto Francisco Pablo | AI Engineer",
     description: "AI Engineer specializing in LLM-based agents, backend systems, and automation pipelines.",
-    creator: "@pablodev",
   },
   robots: {
     index: true,
