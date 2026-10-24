@@ -1,0 +1,40 @@
+---
+title: "Human-in-the-Loop Approval Agent"
+description: "LLM agent that decides on refund requests only when it is sure; otherwise it pauses, asks a human a specific question, validates the answer, and resumes, with every step in a tamper-evident audit log. Shows: safe, compliant systems."
+featured: false
+image: "/projects/hitl-approval-agent-placeholder.png"
+technologies:
+  [
+    "Python",
+    "LangGraph",
+    "langchain-anthropic",
+    "Claude",
+    "Pydantic v2",
+    "SQLite",
+    "pytest",
+  ]
+liveUrl: ""
+githubUrl: "https://github.com/itsonlyfranz/hitl-approval-agent"
+highlights:
+  - "Gates every action on six uncertainty signals - low confidence, missing info, inconsistent samples, unparseable output, LLM error, high-value policy - and fails closed"
+  - "Pauses with a native LangGraph interrupt checkpointed to SQLite and resumed with Command(resume=...), using durable JSON tickets so no side effect happens while a request waits and a pending ticket survives a restart"
+  - "Validates human input before resume: authorised reviewer, separation of duties, every question answered, bounded amount edits, and per-reviewer approval limits"
+  - "Writes a SHA-256 hash-chained audit log - the offline demo records 15 verified records across 3 requests, and tests confirm edits, deletions and reordering are detected"
+  - "Runs self-consistency sampling as parallel graph branches with Send fan-out, and caps graph steps per invocation with a recursion limit"
+  - "Runs the 67-test suite offline with a fake client and an injected clock"
+date: "2026"
+category: "AI Agents"
+order: 10
+---
+
+Human-in-the-Loop Approval Agent decides on refund requests only when it is sure. When it is not, it pauses, asks a human a specific question, validates the answer, and resumes, with every step written to a tamper-evident audit log.
+
+## Architecture
+
+- **agent.py** is the LangGraph `StateGraph` with typed `AgentState`, 10 nodes, conditional edges, `interrupt` and a SQLite checkpointer, with `ApprovalAgent.submit` and `resume` wrapping it.
+- **uncertainty.py** prompts the model, parses its JSON assessment, and turns results and failures into pause signals.
+- **store.py** keeps the local-file ticket index, written atomically, that a reviewer queue shows, while the graph checkpoint holds run state.
+- **validation.py** checks authority, separation of duties, completeness and amounts on human responses.
+- **executor.py** is an idempotent ledger standing in for the side-effecting payments call.
+- **audit.py** is the append-only hash-chained JSONL log with verification, and **cli.py** exposes `hitl demo | submit | pending | respond | audit`.
+- **llm.py** defines the `LLMClient` interface with `AnthropicClient` and an offline `FakeLLMClient`.

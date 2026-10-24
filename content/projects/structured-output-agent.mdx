@@ -1,0 +1,38 @@
+---
+title: "Structured Output Agent"
+description: "Agent harness that forces LLM output into Pydantic schemas, validates every tool call and result, retries with targeted error feedback, and logs every validation failure. Shows: making LLMs reliable, not random."
+featured: false
+image: "/projects/structured-output-agent-placeholder.png"
+technologies:
+  [
+    "Python",
+    "Pydantic v2",
+    "LangGraph",
+    "langchain-anthropic",
+    "Claude",
+    "pytest",
+  ]
+liveUrl: ""
+githubUrl: "https://github.com/itsonlyfranz/structured-output-agent"
+highlights:
+  - "Parses and validates every model reply against a Pydantic schema - invalid output is never returned, only retried or raised as RetriesExhausted"
+  - "Feeds the rejected reply and exact field errors back on retry - in the offline demo, a non-JSON reply and a schema-violating reply (2 field errors) are fixed on attempt 3"
+  - "Validates tool arguments before execution and tool results after it, so bad arguments never reach a tool and bad data never reaches the model unflagged"
+  - "Built the flow as a LangGraph StateGraph with typed state, explicit generate, validate, act and fail nodes, and conditional edges for retry, tool execution and budget exhaustion"
+  - "Logs five failure kinds (parse_error, schema_error, tool_args_error, tool_result_error, tool_error) to JSONL - the demo records 4 of them"
+  - "Put the LLM behind a one-method interface so all 36 tests run offline in about a second with a scripted fake client"
+date: "2026"
+category: "AI Agents"
+order: 5
+---
+
+Structured Output Agent is an agent harness for making LLMs reliable instead of random: model output is forced into Pydantic schemas, every tool call and tool result is validated, and each failure is retried with targeted feedback and recorded in an audit log.
+
+## Architecture
+
+- **graph.py** is the LangGraph `StateGraph` shared by both entry points, with nodes `generate`, `validate`, `act` and `fail`, conditional edges for retry, tool execution and budget exhaustion, and optional checkpointing per run id.
+- **runner.py** provides `StructuredRunner`, the no-tools graph, where failures become corrective user messages naming the offending fields.
+- **agent.py** provides `ToolAgent`, the graph with an `act` node where each turn is a `call_tool` or `final` step, bounded by a step budget so a tool call beyond the budget is never executed.
+- **tools.py** holds `Tool` and `ToolRegistry` with Pydantic input and output models that validate arguments, execute, then validate results.
+- **failures.py** keeps `ValidationFailureLog`, the in-memory and append-only JSONL audit trail.
+- **llm.py** defines the one-method `LLMClient` protocol with `AnthropicClient` (Claude via LangChain) as the only provider seam, while `testing.py` supplies an offline `FakeClient`.
