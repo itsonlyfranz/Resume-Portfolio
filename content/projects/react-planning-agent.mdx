@@ -1,0 +1,38 @@
+---
+title: "ReAct Planning Agent"
+description: "Agents that don't infinite loop: a ReAct agent bounded on every axis that degrades gracefully."
+featured: false
+image: "/projects/react-planning-agent-placeholder.png"
+technologies:
+  [
+    "Python",
+    "LangGraph",
+    "langchain-anthropic",
+    "Claude",
+    "Pydantic v2",
+    "pytest",
+  ]
+liveUrl: ""
+githubUrl: ""
+highlights:
+  - "Enforces five independent stop conditions - iteration cap, repeated-call detection, wall-clock deadline, tool-error streak, parse-failure streak - each covered by a test"
+  - "In the infinite-loop demo the model repeats one call with a cap of 20 iterations; the loop guard warns on call 2 and stops on call 3 (3 of 20 turns used)"
+  - "Gates final answers through a self-critique step with bounded revisions, and surfaces low-confidence acceptance in warnings, never silently"
+  - "Degrades in two tiers - an LLM-written partial answer, then a deterministic fallback built only from successful observations - and every early exit carries a machine-readable StopReason"
+  - "Built the agent as a LangGraph StateGraph with typed state, seven explicit nodes (gate, think, act, reflect, critique, finish, degrade), and every cycle passing through one gate node"
+  - "Runs the full test suite and the six-scenario demo offline with no API key"
+date: "2026"
+category: "AI Agents"
+order: 7
+---
+
+ReAct Planning Agent is an observe, think, act, reflect agent that is bounded on every axis: it can't loop forever, it critiques its own answers, and when it has to stop early it degrades gracefully instead of crashing.
+
+## Architecture
+
+- **ReActAgent (agent.py)** builds and runs the LangGraph `StateGraph`; the `gate` node enforces the iteration cap and deadline, and `act` enforces repeat-call and error-streak limits.
+- **LangGraph runtime** checkpoints every super-step per `thread_id` with `MemorySaver`, with `recursion_limit` as a second-line backstop that degrades from the last checkpoint.
+- **ToolRegistry (tools.py)** dispatches tools and turns unknown tools, bad arguments and crashes into observations, shipping a safe AST calculator and a local fact lookup.
+- **LLMClient / AnthropicClient (llm.py)** is a one-method provider interface for Claude, while `ScriptedLLM` (fake.py) replays responses offline and can simulate outages or a stuck model.
+- **parsing.py** and **models.py** handle tolerant JSON extraction, Pydantic validation, and typed models such as `AgentConfig`, `RunResult` and `StopReason`.
+- **trace.py** appends each run to a local JSONL file.

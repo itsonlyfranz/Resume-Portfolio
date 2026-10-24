@@ -1,0 +1,38 @@
+---
+title: "Cost-Aware Agent Router"
+description: "Reducing infra costs: routes each task to the cheapest capable model and caps spend per task."
+featured: false
+image: "/projects/cost-aware-router-placeholder.png"
+technologies:
+  [
+    "Python",
+    "LangGraph",
+    "langchain-anthropic",
+    "Claude",
+    "Pydantic v2",
+    "pytest",
+  ]
+liveUrl: ""
+githubUrl: ""
+highlights:
+  - "Cut cost 43.7% in the bundled demo (simulated models, 36 tasks): routed cost $0.0646 vs $0.1148 always-premium, with 14% of tasks escalating"
+  - "Scores prompt complexity with a zero-cost heuristic (length, reasoning keywords, code, step count) to pick a starting tier from fast, balanced or premium with no LLM call"
+  - "Runs a confidence-gated cascade where a cheap model answers first and the router exits early at the threshold or escalates one tier at a time"
+  - "Enforces hard per-task token and USD budgets that size max_tokens before each call, downgrade tiers under pressure, and never make a call whose allowance doesn't fit"
+  - "Logs every decision (attempts, tokens, USD, exit reason, counterfactual baseline cost) to JSONL and summarizes p50/p95 and per-model and per-tier breakdowns"
+  - "Built the flow as a LangGraph StateGraph with typed state, five nodes, conditional escalate/exit edges, and an opt-in checkpointer - 54 offline tests pass"
+date: "2026"
+category: "AI Agents"
+order: 11
+---
+
+Cost-Aware Agent Router is built on the premise that most agent traffic doesn't need the most expensive model: it routes each task to the cheapest model that can handle it, stops as soon as the answer is confident, and caps spend per task. The 43.7% figure comes from the bundled demo with simulated models, so it illustrates the mechanism rather than a production saving.
+
+## Architecture
+
+- **agent.py** provides `CostAwareRouter`, the LangGraph `StateGraph` over a typed `RouterState` with an optional checkpointer and a recursion limit.
+- **plan_call** is the budget gate that picks the wanted tier, or the nearest cheaper tier that fits the remaining token and USD budget.
+- **evaluate** is the early-exit decision: confidence at or above the threshold exits, otherwise it escalates one tier, and at premium the answer is accepted.
+- **finalize** assembles the `Decision` and appends it to the JSONL log.
+- **complexity.py**, **budget.py** and **confidence.py** hold the complexity score, `TokenBudget`, and the structured confidence prompt and parser.
+- **analytics.py** keeps the local JSONL `DecisionStore` with `summarize()` and `render()`, and **client.py** defines the `LLMClient` protocol with `AnthropicClient` and an offline `FakeClient`.

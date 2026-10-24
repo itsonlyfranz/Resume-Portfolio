@@ -1,0 +1,39 @@
+---
+title: "Multi-Tool Orchestrator Agent"
+description: "Coordinating complex workflows: plans goals as capability DAGs and runs independent tool steps in parallel."
+featured: false
+image: "/projects/multi-tool-orchestrator-placeholder.png"
+technologies:
+  [
+    "Python",
+    "LangGraph",
+    "langchain-anthropic",
+    "Claude",
+    "Pydantic v2",
+    "SQLite",
+    "pytest",
+  ]
+liveUrl: ""
+githubUrl: ""
+highlights:
+  - "Plans goals as capability DAGs and fans out one parallel LangGraph Send branch per ready step - in the demo, 8 independent searches ran in 0.26 s wall-clock against 2.02 s of summed step time, a 7.8x speedup (local run)"
+  - "Routes by capability rather than tool name over a dynamic registry with hot-swap, plugins and a circuit breaker, ranking providers by priority, observed reliability, trust, cost and latency"
+  - "Applies deny-by-default permission scoping with role grants, argument constraints and per-run scopes, re-checking every call with its real arguments"
+  - "Pauses write-capable steps with a human-in-the-loop interrupt, checkpointed to memory or SQLite so a different process can resume the run"
+  - "Resolves resource conflicts with read/write claims in plan order and result conflicts by priority, majority, weighted vote, median, or an LLM arbiter"
+  - "Runs 97 tests with no network or API key, using a scripted fake LLM and deterministic local tools"
+date: "2026"
+category: "AI Agents"
+order: 8
+---
+
+Multi-Tool Orchestrator is a LangGraph agent for coordinating complex workflows: it plans a goal as a capability DAG, routes each step to the best permitted tool from a live registry, runs independent steps in parallel, and reconciles conflicts between tools.
+
+## Architecture
+
+- **Agent graph (graph.py)** is the `StateGraph` with typed `RunState` and nodes `plan`, `review`, `schedule`, `run_step` and `synthesize`, using conditional edges, `Send` fan-out and `interrupt`.
+- **Orchestrator (orchestrator.py)** is the facade that builds the graph with a `MemorySaver` or SQLite checkpointer and exposes `run`, `execute_plan` and `resume`.
+- **Planner (planner.py)** asks the LLM for a JSON plan over a permission-filtered capability catalog and validates it as a DAG with known capabilities.
+- **Tool registry (registry.py)** and **Router (router.py)** index tools by capability, then filter and rank providers with `balanced`, `cheapest`, `fastest` and `most_reliable` strategies.
+- **Permission policy (permissions.py)**, **Resource manager (resources.py)** and **Conflict resolver (conflicts.py)** handle scoped access, read/write claims, and reconciling disagreeing results.
+- **Step runner (step_runner.py)** and **Audit log (audit.py)** execute one step with retry and fallback, and record routing, denials, fallbacks and conflicts.

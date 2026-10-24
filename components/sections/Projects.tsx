@@ -127,24 +127,26 @@ function ProjectCard({ project, featured = false }: ProjectCardProps) {
         </div>
       </CardContent>
 
-      <CardFooter className="mt-auto flex gap-2 p-4 pt-0">
-        {project.liveUrl && (
-          <Button asChild variant="default" size="sm" className="h-8 flex-1 text-xs">
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="mr-2 h-4 w-4" />
-              View Live
-            </a>
-          </Button>
-        )}
-        {project.githubUrl && (
-          <Button asChild variant="outline" size="sm" className={project.liveUrl ? "h-8 flex-1 text-xs" : "h-8 w-full text-xs"}>
-            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-              <Github className="mr-2 h-4 w-4" />
-              View Code
-            </a>
-          </Button>
-        )}
-      </CardFooter>
+      {(project.liveUrl || project.githubUrl) && (
+        <CardFooter className="mt-auto flex gap-2 p-4 pt-0">
+          {project.liveUrl && (
+            <Button asChild variant="default" size="sm" className="h-8 flex-1 text-xs">
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="mr-2 h-4 w-4" />
+                View Live
+              </a>
+            </Button>
+          )}
+          {project.githubUrl && (
+            <Button asChild variant="outline" size="sm" className={project.liveUrl ? "h-8 flex-1 text-xs" : "h-8 w-full text-xs"}>
+              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                <Github className="mr-2 h-4 w-4" />
+                View Code
+              </a>
+            </Button>
+          )}
+        </CardFooter>
+      )}
     </Card>
   )
 }

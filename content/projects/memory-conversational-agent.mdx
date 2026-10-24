@@ -1,0 +1,39 @@
+---
+title: "Memory-Enabled Conversational Agent"
+description: "Agents that remember users: a short-term buffer plus long-term vector recall that persists across sessions."
+featured: false
+image: "/projects/memory-conversational-agent-placeholder.png"
+technologies:
+  [
+    "Python",
+    "LangGraph",
+    "langchain-anthropic",
+    "Claude",
+    "Pydantic v2",
+    "SQLite",
+    "pytest",
+  ]
+liveUrl: ""
+githubUrl: ""
+highlights:
+  - "Combines a verbatim short-term buffer with long-term memory, where durable facts are extracted by the LLM after each turn, embedded, and recalled in later sessions"
+  - "Keeps context bounded - in a measured 100-turn conversation the raw transcript is about 2,290 estimated tokens while the buffer never exceeds about 393, with older turns folded into a rolling summary"
+  - "Ranks recall by similarity plus recency decay, importance and use frequency, with a similarity gate so an important memory never surfaces for an unrelated question"
+  - "Updates memories through slots, so \"I moved to Lisbon\" replaces \"I live in Berlin\" instead of contradicting it, while near-duplicates are merged and reinforced"
+  - "Syncs across sessions with no server using an append-only JSONL log and file locking - 3 processes x 15 writes, none lost"
+  - "Runs each turn as a LangGraph StateGraph with parallel buffer-update and extraction branches, a SQLite checkpointer for resumable sessions, and a recursion limit"
+date: "2026"
+category: "AI Agents"
+order: 9
+---
+
+Memory-Enabled Conversational Agent is a LangGraph agent that remembers its users: a token-budgeted short-term buffer, long-term vector recall, LLM-driven context compression, and a multi-signal relevance scorer, all running on local files with Claude as the model and no external services.
+
+## Architecture
+
+- **Turn graph (graph.py)** is a `StateGraph` over a typed `TurnState` with nodes `recall`, `generate`, `update_buffer` and `extract` running in parallel, and `store`.
+- **MemoryAgent / ChatSession (agent.py)** wraps the graph with a thread id per user and session, and writes an episodic summary on `close()`.
+- **ShortTermBuffer (buffer.py)** and **ContextCompressor (compression.py)** fold old turns into an LLM-written summary under a token cap, with an extractive fallback if the model fails.
+- **MemoryExtractor (extraction.py)** and **LongTermMemory (memory.py)** extract durable facts, then embed, deduplicate, supersede by slot, recall, reinforce, forget and evict, strictly per user.
+- **RelevanceScorer (scoring.py)** blends similarity, recency, importance and frequency, and **HashingEmbedder (embeddings.py)** provides local deterministic embeddings behind an `Embedder` protocol.
+- **JsonlMemoryStore (store.py)** persists memory under `flock` with compaction, and a SQLite checkpointer resumes each session's buffer.

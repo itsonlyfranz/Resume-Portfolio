@@ -1,0 +1,39 @@
+---
+title: "RAG Agent with Citation Grounding"
+description: "Preventing hallucinations: a RAG agent that verifies every claim against a verbatim source quote."
+featured: false
+image: "/projects/rag-citation-agent-placeholder.png"
+technologies:
+  [
+    "Python",
+    "LangGraph",
+    "langchain-anthropic",
+    "Claude",
+    "Pydantic v2",
+    "TF-IDF",
+    "pytest",
+  ]
+liveUrl: ""
+githubUrl: ""
+highlights:
+  - "Requires each generated claim to carry a verbatim quote from a retrieved source - claims with unknown sources, fabricated quotes, unsupported terms, or numbers absent from the quote are removed before the user sees them"
+  - "Scores confidence from verifiable signals (trust x verification x (retrieval + support) / 2) instead of the model's self-reported confidence - in the demo, one invented claim out of two drops an answer to 0.42 and flags it"
+  - "Skips the LLM call entirely when knowledge-base coverage is weak, routes to a SearchProvider fallback, and abstains rather than guesses if nothing verifies"
+  - "Built the flow as a LangGraph StateGraph with typed Pydantic state, six explicit nodes, and conditional edges for the retrieval gate, confidence check, and search fallback"
+  - "Escapes retrieved text inside source tags and declares it untrusted to mitigate prompt injection, covered by a test"
+  - "Runs all 68 tests and the 4-scenario demo offline with no network or API key"
+date: "2026"
+category: "AI Agents"
+order: 6
+---
+
+RAG Agent with Citation Grounding treats the model's output as untrusted: every claim is verified against the retrieved text before it reaches the user, and a claim that cannot be traced to a verbatim quote in a real source is removed. The answer is then scored, flagged, and, if weak, retried against search results.
+
+## Architecture
+
+- **agent.py** is the LangGraph `StateGraph` with typed `AgentState` and nodes `retrieve`, `answer_from_kb`, `weak_retrieval`, `search`, `answer_from_search` and `finalize`, plus an optional checkpointer.
+- **index.py** handles chunking and a TF-IDF inverted index in a JSON-persisted `KnowledgeBase`.
+- **generation.py** builds the prompt, with sources escaped and declared untrusted, and parses the model's JSON strictly.
+- **grounding.py** is the claim verifier, checking that the source exists, the quote is verbatim, claim terms are covered, and every number appears in the quote.
+- **confidence.py** implements the scoring formula, and **search.py** defines the `SearchProvider` protocol with a local `SnapshotSearch`.
+- **llm.py** and **offline.py** keep the model behind a one-method `LLMClient` protocol, with `AnthropicClient` for Claude and offline clients for keyless runs.
