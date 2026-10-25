@@ -1,9 +1,11 @@
+import { SITE_URL } from "@/lib/site"
+
 export function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Señor Roberto Francisco Pablo",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "https://yourportfolio.com",
+    url: SITE_URL,
     email: "robertopablo13.rp@gmail.com",
     sameAs: [
       "https://linkedin.com/in/señor-roberto-francisco-pablo-b748581ba",

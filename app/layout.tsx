@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { StructuredData } from "@/components/StructuredData";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -17,6 +18,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Señor Roberto Francisco Pablo | AI Engineer",
     template: "%s | Señor Roberto Francisco Pablo",
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "https://yourportfolio.com",
+    url: SITE_URL,
     title: "Señor Roberto Francisco Pablo | AI Engineer",
     description: "AI Engineer specializing in LLM-based agents, backend systems, and automation pipelines.",
     siteName: "Señor Roberto Francisco Pablo",
@@ -37,7 +39,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Señor Roberto Francisco Pablo | AI Engineer",
     description: "AI Engineer specializing in LLM-based agents, backend systems, and automation pipelines.",
-    creator: "@pablodev",
   },
   robots: {
     index: true,
