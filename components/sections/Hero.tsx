@@ -51,10 +51,10 @@ export function Hero() {
               Baguio City, Philippines
             </p>
             <p className="text-base font-medium text-foreground md:text-lg">
-              AI Engineer
+              AI Engineer · Full-Stack Developer
             </p>
             <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-              I build LangGraph agents and RAG systems, such as a citation-grounded agent that removes any claim it cannot trace to a verbatim source quote, backed by 68 offline tests.
+              I build AI-powered full-stack applications, LLM-based agents, automation workflows, and product features that connect clean user experiences with reliable backend systems.
             </p>
           </motion.div>
 
