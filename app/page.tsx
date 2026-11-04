@@ -186,7 +186,7 @@ export default function Home() {
           ))}
         </section>
         <section id="contact" className="portfolio-section contact-section">
-          <p className="eyebrow">LET’S BUILD SOMETHING USEFUL</p>
+          <p className="eyebrow">07 — LET’S BUILD SOMETHING USEFUL</p>
           <h2>
             Have a problem
             <br />

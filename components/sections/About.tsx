@@ -2,7 +2,7 @@ export function About() {
   return (
     <section id="about" className="portfolio-section about-section">
       <div className="section-heading">
-        <h2>about</h2>
+        <h2>01 — about</h2>
         <a href="#contact">OPEN TO FULL-TIME AI ENGINEER ROLES →</a>
       </div>
       <p>
