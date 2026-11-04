@@ -9,7 +9,7 @@ Personal portfolio for Señor Roberto Francisco Pablo, an AI engineer working on
 ## Stack
 
 - Next.js 16 (App Router), React 19, TypeScript
-- Tailwind CSS v4, Radix UI primitives, Framer Motion
+- Tailwind CSS v4, Radix UI primitives
 - Content as MDX via Contentlayer (`content/`)
 - RAG chat: LangGraph + Groq (chat) + OpenRouter (embeddings)
 - Contact form via Resend; analytics via Vercel Analytics
