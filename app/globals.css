@@ -300,11 +300,15 @@ summary {
 }
 .sidebar-content nav a {
   display: flex;
+  align-items: baseline;
   gap: 16px;
   color: hsl(var(--muted-foreground));
 }
 .sidebar-content nav a span {
+  flex: none;
+  width: 2ch;
   font-size: 10px;
+  font-variant-numeric: tabular-nums;
   opacity: 0.6;
 }
 .sidebar-content nav a:hover {

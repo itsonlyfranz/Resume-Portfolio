@@ -44,7 +44,7 @@ export function Projects({ projects }: { projects: Project[] }) {
   return (
     <section id="projects" className="portfolio-section">
       <div className="section-heading">
-        <h2>01 — projects</h2>
+        <h2>02 — projects</h2>
         <a href="#all-projects">ALL →</a>
       </div>
       <div className="project-fan">

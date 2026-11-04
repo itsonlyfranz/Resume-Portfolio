@@ -98,7 +98,7 @@ export default function Home() {
         <Projects projects={projects} />
         <section id="experience" className="portfolio-section">
           <div className="section-heading">
-            <h2>02 — experience</h2>
+            <h2>03 — experience</h2>
             <a href="#work-details">ALL →</a>
           </div>
           <table className="experience-table">
@@ -141,7 +141,7 @@ export default function Home() {
         </section>
         <section id="certifications" className="portfolio-section">
           <div className="section-heading">
-            <h2>03 — certifications</h2>
+            <h2>05 — certifications</h2>
             <a href="#certification-list">ALL →</a>
           </div>
           <div id="certification-list" className="cert-grid">
@@ -170,7 +170,7 @@ export default function Home() {
         </section>
         <section id="education" className="portfolio-section">
           <div className="section-heading">
-            <h2>04 — education</h2>
+            <h2>06 — education</h2>
           </div>
           {allEducation.map((item) => (
             <article className="education-row" key={item._id}>
