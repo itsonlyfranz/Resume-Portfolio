@@ -43,7 +43,6 @@ Create `.env.local` with the variables you need:
 | `OPENROUTER_API_KEY`, `OPENROUTER_EMBEDDING_MODEL` | RAG chat embeddings (required for chat) |
 | `RESEND_API_KEY`, `CONTACT_EMAIL` | Contact form email delivery (optional) |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URL for metadata, sitemap and OG image (defaults to the live URL) |
-| `NEXT_PUBLIC_GITHUB_USERNAME` | GitHub activity section (optional) |
 
 ## Deploy
 
