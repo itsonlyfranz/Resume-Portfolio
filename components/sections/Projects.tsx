@@ -36,7 +36,7 @@ export function Projects({ projects }: ProjectsProps) {
         <div>
           <h2 className="resume-heading">Recent Projects</h2>
           <p className="mt-1 text-xs text-muted-foreground">
-            Selected AI, full-stack, mobile, and Web3 work.
+            Selected AI agents and full-stack and mobile work.
           </p>
         </div>
 

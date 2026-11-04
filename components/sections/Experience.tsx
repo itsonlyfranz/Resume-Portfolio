@@ -6,28 +6,31 @@ import { Briefcase } from "lucide-react"
 export function Experience() {
   const experiences = [
     {
-      company: "Shiftcare",
+      company: "ShiftCare",
       position: "AI Engineer",
+      location: "New South Wales, Australia (remote)",
       period: "May 2026 - Present",
-      description: "",
+      description: "Build full-stack AI agents, covering the LLM agent logic, backend services and the application layer around them.",
       impact: [],
-      responsibilities: [],
-      technologies: ["Python", "TypeScript", "Node.js", "LangChain", "LangGraph", "LLM Agents", "Prompt Engineering", "APIs"]
+      technologies: []
+    },
+    {
+      company: "Stealth-Mode Startup",
+      position: "AI Engineer",
+      location: "Company undisclosed at the employer's request",
+      period: "January 2026 - May 2026",
+      description: "Worked as an AI Engineer on an early-stage, confidential product.",
+      impact: [],
+      technologies: []
     },
     {
       company: "THEOSYM",
-      position: "AI Engineer / Backend Developer",
-      period: "Nov 2024 - January 2026",
-      description: "Designing and optimizing scalable backend systems and APIs supporting AI-driven applications.",
+      position: "AI Engineer",
+      location: "California, United States (remote)",
+      period: "November 2024 - January 2026",
+      description: "Developed AI-powered full-stack applications and backend systems with LLM integrations and workflow automation.",
       impact: [
-        "Designed scalable backend systems supporting AI-driven, full-stack applications",
-        "Developed LLM-based AI agents using prompt engineering and structured context management",
-        "Built AI automation pipelines using n8n, reducing manual processes and improving efficiency"
-      ],
-      responsibilities: [
-        "Implement AI integrations using Model Context Protocol (MCP) for consistent LLM context handling",
-        "Integrate AI-powered services into production systems through RESTful APIs",
-        "Build full-stack features with Next.js and React, using Supabase for auth and database management"
+        "Built and deployed AI-driven applications, backend APIs and LLM-based solutions for production use."
       ],
       technologies: ["Python", "Node.js", "TypeScript", "Next.js", "React", "n8n", "Supabase", "MCP", "LLM Agents"]
     }
@@ -50,6 +53,7 @@ export function Experience() {
                 <span>{exp.company}</span>
                 <span className="text-right">{exp.period}</span>
               </div>
+              <p className="mt-1 text-xs text-muted-foreground">{exp.location}</p>
             </div>
             <p className="mt-3 text-xs leading-5 text-muted-foreground">{exp.description}</p>
             <ul className="mt-3 space-y-1.5 text-xs leading-5">

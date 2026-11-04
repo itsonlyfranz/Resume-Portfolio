@@ -51,11 +51,12 @@ export function Hero() {
               Baguio City, Philippines
             </p>
             <p className="text-base font-medium text-foreground md:text-lg">
-              AI Engineer · Full-Stack Developer
+              AI Engineer
             </p>
             <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-              I build AI-powered full-stack applications, LLM-based agents, automation workflows, and product features that connect clean user experiences with reliable backend systems.
+              I build LLM agents with validated outputs and grounded answers, including a RAG agent with citation grounding.
             </p>
+            <p className="text-sm font-medium">Currently at ShiftCare</p>
           </motion.div>
 
           <motion.div

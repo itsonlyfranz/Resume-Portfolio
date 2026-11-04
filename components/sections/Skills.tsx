@@ -8,7 +8,7 @@ export function Skills() {
     },
     {
       title: "Full Stack",
-      skills: ["Next.js App Router", "React", "TypeScript", "Node.js", "Python", "RESTful APIs", "Supabase"],
+      skills: ["Next.js App Router", "React", "TypeScript", "Node.js", "Python", "FastAPI", "RESTful APIs", "Supabase", "Docker"],
     },
     {
       title: "Mobile",
