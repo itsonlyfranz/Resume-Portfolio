@@ -1,5 +1,5 @@
 Señor Roberto Francisco Pablo
-AI Engineer | Backend & Automation Specialist
+AI Engineer
 Baguio City, Philippines • robertopablo13.rp@gmail.com •
 linkedin.com/in/señor-roberto-francisco-pablo-b748581ba
 SUMMARY
@@ -15,8 +15,11 @@ Back-end: Python, Node.js, JavaScript, TypeScript, SQL, RESTful APIs
 Frameworks: Next.js, React
 Tools: Git, Cursor, relational databases
 EXPERIENCE
+Shiftcare — AI Engineer
+May 2026 – Present
+
 THEOSYM — AI Engineer / Back-end Developer
-Nov 2024 – Present | Full-time
+Nov 2024 – January 2026 | Full-time
 ● Designed and optimized scalable backend systems and APIs supporting AI-driven, full-stack
 applications.
 ● Implemented full-stack features with Next.js and React, consuming RESTful APIs and AI-powered
@@ -31,6 +34,6 @@ efficiency.
 Node.js backends.
 EDUCATION
 University of the Cordilleras
-Bachelor of Science in Information Technology (Major in Network and Security) | 2022 – 2025
+Bachelor of Science in Information Technology (Major in Network and Security) | 2022 – 2026
 CERTIFICATIONS
-Blockchain • Technical Support Fundamentals • The Bits and Bytes of Computer Networking
+Technical Support Fundamentals • The Bits and Bytes of Computer Networking

@@ -8,12 +8,22 @@ export function StructuredData() {
     url: SITE_URL,
     email: "robertopablo13.rp@gmail.com",
     sameAs: [
+      "https://github.com/itsonlyfranz",
       "https://linkedin.com/in/señor-roberto-francisco-pablo-b748581ba",
     ],
-    jobTitle: "AI Engineer / Backend Developer",
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "University of the Cordilleras",
+    },
+    hasCredential: {
+      "@type": "EducationalOccupationalCredential",
+      name: "Bachelor of Science in Information Technology",
+      temporalCoverage: "2022/2026",
+    },
+    jobTitle: "AI Engineer",
     worksFor: {
       "@type": "Organization",
-      name: "THEOSYM",
+      name: "Shiftcare",
     },
     address: {
       "@type": "PostalAddress",
