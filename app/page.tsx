@@ -1,53 +1,216 @@
-import { Header } from "@/components/Header"
-import { Footer } from "@/components/Footer"
-import { Hero } from "@/components/sections/Hero"
-import { About } from "@/components/sections/About"
-import { Projects } from "@/components/sections/Projects"
-import { Experience } from "@/components/sections/Experience"
-import { Skills } from "@/components/sections/Skills"
-import { Education } from "@/components/sections/Education"
-import { Certifications } from "@/components/sections/Certifications"
-import { Contact } from "@/components/sections/Contact"
-import { AnimatedSection } from "@/components/AnimatedSection"
-import { allProjects } from "contentlayer/generated"
-
+import Image from "next/image";
+import { Header } from "@/components/Header";
+import { Projects } from "@/components/sections/Projects";
+import {
+  allProjects,
+  allExperiences,
+  allCertifications,
+  allEducation,
+} from "contentlayer/generated";
+const date = (value: string) =>
+  new Date(`${value}-01`).toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 export default function Home() {
-  const sortedProjects = [...allProjects].sort((a, b) => a.order - b.order)
-
+  const projects = [...allProjects].sort((a, b) => a.order - b.order);
+  const experience = [...allExperiences].sort((a, b) => a.order - b.order);
+  const certifications = [...allCertifications].sort(
+    (a, b) => a.order - b.order,
+  );
+  const stack = [...new Set(experience.flatMap((item) => item.technologies))];
   return (
-    <div className="min-h-screen">
+    <>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <Header />
-      <main className="mx-auto max-w-5xl px-4 pb-12 pt-20 md:px-6 md:pt-24">
-        <Hero />
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
-          <div className="min-w-0">
-            <AnimatedSection>
-              <About />
-            </AnimatedSection>
-            <AnimatedSection delay={0.05}>
-              <Skills />
-            </AnimatedSection>
-            <AnimatedSection delay={0.05}>
-              <Projects projects={sortedProjects} />
-            </AnimatedSection>
-            <AnimatedSection delay={0.05}>
-              <Contact />
-            </AnimatedSection>
+      <main id="main" className="portfolio-main">
+        <section id="home" className="hero-section">
+          <div className="hero-grid">
+            <div className="portrait-frame">
+              <Image
+                src="/profile-dithered.png"
+                alt="Señor Roberto Francisco Pablo"
+                width={288}
+                height={320}
+                priority
+                className="portrait"
+              />
+              <span className="portrait-note">BAGUIO CITY, PHILIPPINES</span>
+            </div>
+            <div className="hero-copy">
+              <p className="eyebrow">
+                <span className="status-dot" /> AI ENGINEER · SHIFTCARE
+              </p>
+              <h1>
+                Señor Roberto
+                <br />
+                Francisco Pablo<span className="brand-dot">.</span>
+              </h1>
+              <p>
+                I build LLM agents with validated outputs and grounded answers,
+                including a RAG agent with citation grounding.
+              </p>
+              <p className="muted">
+                Open to remote international roles and relocating abroad.
+              </p>
+              <div className="social-links">
+                <a
+                  href="https://github.com/itsonlyfranz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  github ↗
+                </a>
+                <a
+                  href="https://linkedin.com/in/señor-roberto-francisco-pablo-b748581ba"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  linkedin ↗
+                </a>
+                <a href="/resume.pdf">résumé ↓</a>
+              </div>
+            </div>
           </div>
-          <aside className="min-w-0 space-y-6 lg:sticky lg:top-24">
-            <AnimatedSection delay={0.1}>
-              <Experience />
-            </AnimatedSection>
-            <AnimatedSection delay={0.15}>
-              <Education />
-            </AnimatedSection>
-            <AnimatedSection delay={0.2}>
-              <Certifications />
-            </AnimatedSection>
-          </aside>
-        </div>
+          <div className="stats-strip">
+            <a href="#projects">
+              <strong>{projects.length.toString().padStart(2, "0")}</strong>
+              <span>PROJECTS</span>
+            </a>
+            <a href="#experience">
+              <strong>{experience.length.toString().padStart(2, "0")}</strong>
+              <span>ROLES IN AI</span>
+            </a>
+            <a href="#certifications">
+              <strong>
+                {certifications.length.toString().padStart(2, "0")}
+              </strong>
+              <span>CERTIFICATIONS</span>
+            </a>
+          </div>
+        </section>
+        <Projects projects={projects} />
+        <section id="experience" className="portfolio-section">
+          <div className="section-heading">
+            <h2>02 — experience</h2>
+            <a href="#work-details">ALL →</a>
+          </div>
+          <table className="experience-table">
+            <caption className="sr-only">Employment history</caption>
+            <thead className="sr-only">
+              <tr>
+                <th>Year</th>
+                <th>Role and dates</th>
+                <th>Company</th>
+              </tr>
+            </thead>
+            <tbody>
+              {experience.map((item) => (
+                <tr className="experience-row" key={item._id}>
+                  <td className="mono muted">{item.startDate.slice(0, 4)}</td>
+                  <td>
+                    <h3>{item.position}</h3>
+                    <p className="mono muted">
+                      {date(item.startDate)} —{" "}
+                      {item.endDate ? date(item.endDate) : "Present"}
+                    </p>
+                  </td>
+                  <td className="company">{item.company}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <details id="work-details" className="work-details">
+            <summary>Role details</summary>
+            {experience
+              .filter((item) => item.description)
+              .map((item) => (
+                <div key={item._id}>
+                  <h3>{item.company}</h3>
+                  <p>{item.description}</p>
+                </div>
+              ))}
+          </details>
+          <div id="stack" className="stack-block">
+            <div className="section-heading">
+              <h3>STACK</h3>
+              <span className="eyebrow">TOOLS & TECHNOLOGIES</span>
+            </div>
+            <div className="stack-chips">
+              {stack.map((skill) => (
+                <span key={skill}>{skill}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section id="certifications" className="portfolio-section">
+          <div className="section-heading">
+            <h2>03 — certifications</h2>
+            <a href="#certification-list">ALL →</a>
+          </div>
+          <div id="certification-list" className="cert-grid">
+            {certifications.map((item) => (
+              <article className="cert-card" key={item._id}>
+                <span className="cert-symbol" aria-hidden="true">
+                  ✳
+                </span>
+                <p className="eyebrow">
+                  {item.issuer} / {item.date}
+                </p>
+                <h3>{item.name}</h3>
+                {item.link && (
+                  <a
+                    className="eyebrow"
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    VERIFY ↗
+                  </a>
+                )}
+              </article>
+            ))}
+          </div>
+        </section>
+        <section id="education" className="portfolio-section">
+          <div className="section-heading">
+            <h2>04 — education</h2>
+          </div>
+          {allEducation.map((item) => (
+            <article className="education-row" key={item._id}>
+              <span className="mono muted">
+                {item.startDate} — {item.endDate}
+              </span>
+              <div>
+                <h3>{item.degree}</h3>
+                <p>{item.institution}</p>
+                <p className="muted">{item.description}</p>
+              </div>
+            </article>
+          ))}
+        </section>
+        <section id="contact" className="portfolio-section contact-section">
+          <p className="eyebrow">LET’S BUILD SOMETHING USEFUL</p>
+          <h2>
+            Have a problem
+            <br />
+            worth solving<span className="brand-dot">?</span>
+          </h2>
+          <a href="mailto:robertopablo13.rp@gmail.com">
+            robertopablo13.rp@gmail.com ↗
+          </a>
+          <p className="muted">
+            Baguio City, Philippines · Open to relocating abroad
+          </p>
+        </section>
+        <footer className="portfolio-footer">
+          <span>Señor Roberto Francisco Pablo</span>
+          <a href="#home">Back to top ↑</a>
+        </footer>
       </main>
-      <Footer />
-    </div>
+    </>
   );
 }
