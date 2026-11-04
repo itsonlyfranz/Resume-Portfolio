@@ -2,9 +2,7 @@
 
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Send, Loader2 } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 export function ChatWidget() {
@@ -15,7 +13,6 @@ export function ChatWidget() {
   });
   const [input, setInput] = useState("");
   const messagesContainerRef = useRef<HTMLDivElement>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     const container = messagesContainerRef.current;
@@ -58,120 +55,129 @@ export function ChatWidget() {
     };
   }, []);
 
+  const busy = status === "streaming" || status === "submitted";
+
   return (
     <dialog
       ref={dialogRef}
-      className="chat-dialog"
+      className="ask-dialog"
       aria-labelledby="chat-title"
+      aria-describedby="chat-description"
       onClose={() => {
         const trigger = triggerRef.current;
         if (trigger?.getClientRects().length) trigger.focus();
-        else document.querySelector<HTMLButtonElement>(".menu-toggle")?.focus();
+        else
+          document
+            .querySelector<HTMLButtonElement>('[aria-controls="mobile-nav"]')
+            ?.focus();
       }}
       onClick={(event) => {
         if (event.target === event.currentTarget) dialogRef.current?.close();
       }}
     >
-      <div className="chat-shell">
-        <div className="chat-header">
-          <div>
-            <h2 id="chat-title">Ask anything</h2>
-            <p>Answers from Francisco&apos;s portfolio content</p>
-          </div>
-          <button
-            className="chat-close"
-            onClick={() => dialogRef.current?.close()}
-            aria-label="Close Ask anything"
+      <div
+        aria-hidden="true"
+        className="ask-frost"
+        onClick={() => dialogRef.current?.close()}
+      />
+      <button
+        type="button"
+        className="fixed right-6 top-6 z-10 font-mono text-[11px] uppercase tracking-wider text-gray-500 hover:text-ink"
+        onClick={() => dialogRef.current?.close()}
+        aria-label="Close Ask anything"
+      >
+        esc ×
+      </button>
+      <div className="ask-content">
+        <div>
+          <h2 id="chat-title" className="ask-title">
+            what do you want to ask?
+          </h2>
+          <p
+            id="chat-description"
+            className="mt-3 font-mono text-[11px] uppercase tracking-wider text-gray-400"
           >
-            esc ×
-          </button>
+            Answers from Francisco&apos;s portfolio content
+          </p>
         </div>
-        {/* Messages */}
+
         <div
           ref={messagesContainerRef}
           role="log"
           aria-live="polite"
-          className="flex-1 overflow-y-auto p-4 space-y-4"
+          className="ask-messages"
         >
           {messages.length === 0 && (
-            <div className="text-center text-muted-foreground text-sm mt-8">
-              <p className="mb-2">
-                👋 Hi! I answer from Francisco&apos;s portfolio content.
-              </p>
-              <p className="text-xs">
-                Try asking about his skills, experience, projects, or
-                certifications.
-              </p>
-            </div>
+            <p className="font-mono text-[13px] text-gray-400">
+              Try asking about his skills, experience, projects, or
+              certifications.
+            </p>
           )}
-          {messages.map((m) => (
-            <div
-              key={m.id}
-              className={
-                m.role === "user" ? "flex justify-end" : "flex justify-start"
-              }
-            >
-              <div
-                className={`max-w-[85%] p-3 rounded-lg ${
-                  m.role === "user"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted"
-                }`}
-              >
-                {m.parts.map((part, i) =>
-                  part.type === "text" ? (
-                    <span key={i} className="text-sm whitespace-pre-wrap">
-                      {part.text}
-                    </span>
-                  ) : null,
-                )}
+          {messages
+            .filter((m) =>
+              m.parts.some((part) => part.type === "text" && part.text),
+            )
+            .map((m) => (
+              <div key={m.id} className="max-w-[92%]">
+                <p className="font-mono text-[10px] uppercase tracking-wider text-gray-400">
+                  {m.role === "user" ? "you" : "answer"}
+                </p>
+                <p
+                  className={`mt-1 whitespace-pre-wrap leading-relaxed ${
+                    m.role === "user"
+                      ? "text-[14px] text-gray-500"
+                      : "text-[15px] text-ink"
+                  }`}
+                >
+                  {m.parts.map((part, i) =>
+                    part.type === "text" ? (
+                      <span key={i}>{part.text}</span>
+                    ) : null,
+                  )}
+                </p>
               </div>
-            </div>
-          ))}
-          {(status === "streaming" || status === "submitted") && (
-            <div className="flex justify-start">
-              <div className="bg-muted p-3 rounded-lg">
-                <Loader2 className="h-4 w-4 animate-spin" />
-              </div>
-            </div>
+            ))}
+          {busy && (
+            <p className="font-mono text-[12px] text-gray-400">
+              <span className="pulse-dot inline-block">thinking…</span>
+            </p>
           )}
           {error && (
-            <p role="alert" className="text-sm text-muted-foreground">
+            <p role="alert" className="text-[14px] text-gray-500">
               Chat is temporarily unavailable. Please try again or email{" "}
               <a
                 href="mailto:robertopablo13.rp@gmail.com"
-                className="underline"
+                className="text-ink underline underline-offset-4"
               >
                 robertopablo13.rp@gmail.com
               </a>
               .
             </p>
           )}
-          <div ref={messagesEndRef} />
         </div>
 
-        {/* Input */}
-        <form onSubmit={handleSubmit} className="p-4 border-t flex gap-2">
-          <Input
+        <form onSubmit={handleSubmit} className="flex items-end gap-3">
+          <input
             name="question"
             autoFocus
+            autoComplete="off"
             aria-label="Ask about Francisco’s work"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about my work..."
             disabled={status !== "ready" && status !== "error"}
-            className="flex-1"
+            className="ask-input"
           />
-          <Button
+          <button
             aria-label="Send message"
             type="submit"
-            size="icon"
             disabled={
               (status !== "ready" && status !== "error") || !input.trim()
             }
+            className="mb-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ink text-paper hover:opacity-80 disabled:opacity-30"
           >
-            <Send className="h-4 w-4" />
-          </Button>
+            <ArrowUp aria-hidden="true" className="h-4 w-4" />
+          </button>
         </form>
       </div>
     </dialog>

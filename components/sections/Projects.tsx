@@ -1,39 +1,16 @@
+"use client";
+import { useState } from "react";
 import type { Project } from "contentlayer/generated";
-function ProjectCard({ project, index }: { project: Project; index: number }) {
-  return (
-    <article className={`project-card project-card-${index}`}>
-      <div className="project-card-top">
-        <span className="project-glyph" aria-hidden="true">
-          {["{ }", "↗", "⌘"][index % 3]}
-        </span>
-        <span className="eyebrow">
-          {project.featured ? "FEATURED" : project.category}
-        </span>
-      </div>
-      <h3>{project.title}</h3>
-      <p>{project.description}</p>
-      <div className="project-tech mono">
-        {project.technologies.slice(0, 3).join(" / ")}
-      </div>
-      <div className="project-links">
-        {project.githubUrl && (
-          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-            source ↗
-          </a>
-        )}
-        {project.liveUrl && (
-          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-            live ↗
-          </a>
-        )}
-      </div>
-    </article>
-  );
-}
-export function Projects({ projects }: { projects: Project[] }) {
+import { ExternalLinks, Monogram, Pill, SectionHeading } from "../primitives";
+import { monogram } from "@/lib/portfolio";
+
+const POSITIONS = ["is-left", "is-center", "is-right"] as const;
+
+/** Picks the three home-page cards: the featured project between two others. */
+function pickDeck(projects: Project[]) {
   const featured = projects.find((project) => project.featured) ?? projects[0];
   const others = projects.filter((project) => project._id !== featured?._id);
-  const fan = [
+  return [
     others[0],
     featured,
     others
@@ -41,65 +18,91 @@ export function Projects({ projects }: { projects: Project[] }) {
       .find((project) => project.category === "Full-stack & mobile") ??
       others[1],
   ].filter(Boolean);
+}
+
+function DeckCard({
+  project,
+  position,
+  onSelect,
+}: {
+  project: Project;
+  position: (typeof POSITIONS)[number];
+  onSelect: () => void;
+}) {
+  const centered = position === "is-center";
   return (
-    <section id="projects" className="portfolio-section">
-      <div className="section-heading">
-        <h2>02 — projects</h2>
-        <a href="#all-projects">ALL →</a>
-      </div>
-      <div className="project-fan">
-        {fan.map((project, index) => (
-          <ProjectCard key={project._id} project={project} index={index} />
-        ))}
-      </div>
-      <details id="all-projects" className="all-projects">
-        <summary>
-          Explore all {projects.length} projects <span>↓</span>
-        </summary>
-        <div className="project-list">
-          {projects.map((project) => (
-            <article key={project._id}>
-              <div className="project-list-heading">
-                <h3>{project.title}</h3>
-                <span className="mono muted">{project.date}</span>
-              </div>
-              <p>{project.description}</p>
-              {project.highlights && (
-                <ul>
-                  {project.highlights.slice(0, 3).map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
-                  ))}
-                </ul>
-              )}
-              <div className="stack-chips">
-                {project.technologies.map((tech) => (
-                  <span key={tech}>{tech}</span>
-                ))}
-              </div>
-              <div className="project-links">
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    source ↗
-                  </a>
-                )}
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    live ↗
-                  </a>
-                )}
-              </div>
-            </article>
-          ))}
+    <article
+      className={`deck-card ${position} rounded-2xl border border-gray-200 bg-paper p-5`}
+    >
+      <div inert={!centered}>
+        <div className="flex flex-wrap items-center gap-1.5">
+          <Pill solid>{project.category ?? "Project"}</Pill>
+          {project.featured && <Pill>Featured</Pill>}
+          <Pill>{project.date}</Pill>
         </div>
-      </details>
+        <div className="mt-4 flex items-center gap-3.5">
+          <Monogram value={monogram(project.title)} />
+          <h3 className="font-pixel text-base leading-tight text-ink">
+            {project.title}
+          </h3>
+        </div>
+        <p className="mt-3 line-clamp-3 text-[13px] leading-relaxed text-gray-600">
+          {project.description}
+        </p>
+        <p className="mt-3 truncate font-mono text-[11px] text-gray-400">
+          {project.technologies.slice(0, 3).join(" / ")}
+        </p>
+        <ExternalLinks
+          githubUrl={project.githubUrl}
+          liveUrl={project.liveUrl}
+          className="mt-4"
+        />
+      </div>
+      {!centered && (
+        <button
+          type="button"
+          onClick={onSelect}
+          className="absolute inset-0 z-10 cursor-pointer rounded-2xl"
+          aria-label={`Show ${project.title}`}
+        />
+      )}
+    </article>
+  );
+}
+
+export function Projects({ projects }: { projects: Project[] }) {
+  const deck = pickDeck(projects);
+  // `offset` rotates which project sits in the centre slot.
+  const [offset, setOffset] = useState(0);
+  const count = deck.length;
+  return (
+    <section id="projects" className="py-14">
+      <SectionHeading
+        title="02 — projects"
+        href="/projects"
+        linkLabel={`all ${projects.length} projects →`}
+      />
+      <div className="deck">
+        {deck.map((project, index) => {
+          const slot = (((index - offset) % count) + count) % count;
+          const position =
+            POSITIONS[count === 3 ? slot : Math.min(slot + 1, 2)];
+          return (
+            <DeckCard
+              key={project._id}
+              project={project}
+              position={position}
+              onSelect={() =>
+                setOffset((current) =>
+                  position === "is-left"
+                    ? (current + count - 1) % count
+                    : (current + 1) % count,
+                )
+              }
+            />
+          );
+        })}
+      </div>
     </section>
   );
 }

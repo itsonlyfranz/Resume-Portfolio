@@ -1,45 +1,25 @@
-const skillGroups = [
-  {
-    title: "AI and agents",
-    skills: ["LLM Integration", "AI Agents", "LangChain", "LangGraph", "Workflow Orchestration", "n8n"],
-  },
-  {
-    title: "Backend and APIs",
-    skills: ["Python", "FastAPI", "Node.js", "Supabase", "API Integrations"],
-  },
-  {
-    title: "Frontend and full-stack",
-    skills: ["TypeScript", "Next.js", "React"],
-  },
-  {
-    title: "Tools",
-    skills: ["Docker"],
-  },
-  {
-    title: "Mobile (iOS)",
-    skills: ["Swift", "SwiftUI", "SwiftData", "Swift Charts", "Apple Intelligence"],
-  },
-]
+import { Chip, SectionHeading } from "../primitives";
+import { SKILL_GROUPS } from "@/lib/portfolio";
 
+/** Home-page stack preview: every skill as a chip, grouped detail lives on /stack. */
 export function Skills() {
+  const skills = SKILL_GROUPS.flatMap((group) => group.skills);
   return (
-    <div id="stack" className="stack-block">
-      <div className="section-heading">
-        <h3>04 — stack</h3>
-        <span className="eyebrow">TOOLS & TECHNOLOGIES</span>
-      </div>
-      <div className="stack-groups">
-        {skillGroups.map((group) => (
-          <div key={group.title}>
-            <h4 className="eyebrow muted">{group.title}</h4>
-            <div className="stack-chips">
-              {group.skills.map((skill) => (
-                <span key={skill}>{skill}</span>
-              ))}
-            </div>
-          </div>
+    <div id="stack" className="mt-7 scroll-mt-20">
+      <SectionHeading
+        as="h3"
+        title="04 — stack"
+        href="/stack"
+        linkLabel="view all →"
+        className="mb-4"
+      />
+      <ul className="flex flex-wrap gap-2" aria-label="Tools and technologies">
+        {skills.map((skill) => (
+          <li key={skill}>
+            <Chip>{skill}</Chip>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
-  )
+  );
 }
