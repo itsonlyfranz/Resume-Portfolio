@@ -56,7 +56,7 @@ export function Hero() {
             <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
               I build LLM agents with validated outputs and grounded answers, including a RAG agent with citation grounding.
             </p>
-            <p className="text-sm font-medium">Currently at Shiftcare</p>
+            <p className="text-sm font-medium">Currently at ShiftCare</p>
           </motion.div>
 
           <motion.div

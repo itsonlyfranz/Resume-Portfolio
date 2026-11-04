@@ -7,7 +7,7 @@ export function Education() {
     {
       degree: "Bachelor of Science in Information Technology",
       institution: "University of the Cordilleras",
-      period: "2022 - 2026",
+      period: "January 2022 - April 2026",
       description: "Major in Network and Security. Focused on backend development, AI integration, and system architecture.",
       highlights: [
         "Specialized in Network and Security",

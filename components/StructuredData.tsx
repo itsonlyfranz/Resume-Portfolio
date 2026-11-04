@@ -18,12 +18,12 @@ export function StructuredData() {
     hasCredential: {
       "@type": "EducationalOccupationalCredential",
       name: "Bachelor of Science in Information Technology",
-      temporalCoverage: "2022/2026",
+      temporalCoverage: "2022-01/2026-04",
     },
     jobTitle: "AI Engineer",
     worksFor: {
       "@type": "Organization",
-      name: "Shiftcare",
+      name: "ShiftCare",
     },
     address: {
       "@type": "PostalAddress",
