@@ -2,13 +2,13 @@
 import { useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
 const links = [
-  { id: "about", label: "—" },
-  { id: "projects", label: "01" },
-  { id: "experience", label: "02" },
-  { id: "stack", label: "—" },
-  { id: "certifications", label: "03" },
-  { id: "education", label: "04" },
-  { id: "contact", label: "—" },
+  { id: "about", label: "01" },
+  { id: "projects", label: "02" },
+  { id: "experience", label: "03" },
+  { id: "stack", label: "04" },
+  { id: "certifications", label: "05" },
+  { id: "education", label: "06" },
+  { id: "contact", label: "07" },
 ];
 export function Header() {
   const [open, setOpen] = useState(false);

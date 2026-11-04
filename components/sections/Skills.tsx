@@ -25,7 +25,7 @@ export function Skills() {
   return (
     <div id="stack" className="stack-block">
       <div className="section-heading">
-        <h3>STACK</h3>
+        <h3>04 — stack</h3>
         <span className="eyebrow">TOOLS & TECHNOLOGIES</span>
       </div>
       <div className="stack-groups">
