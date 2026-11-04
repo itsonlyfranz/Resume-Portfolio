@@ -1,6 +1,9 @@
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import { Projects } from "@/components/sections/Projects";
+import { About } from "@/components/sections/About";
+import { Skills } from "@/components/sections/Skills";
+import { Contact } from "@/components/sections/Contact";
 import {
   allProjects,
   allExperiences,
@@ -19,7 +22,6 @@ export default function Home() {
   const certifications = [...allCertifications].sort(
     (a, b) => a.order - b.order,
   );
-  const stack = [...new Set(experience.flatMap((item) => item.technologies))];
   return (
     <>
       <a className="skip-link" href="#main">
@@ -92,6 +94,7 @@ export default function Home() {
             </a>
           </div>
         </section>
+        <About />
         <Projects projects={projects} />
         <section id="experience" className="portfolio-section">
           <div className="section-heading">
@@ -134,17 +137,7 @@ export default function Home() {
                 </div>
               ))}
           </details>
-          <div id="stack" className="stack-block">
-            <div className="section-heading">
-              <h3>STACK</h3>
-              <span className="eyebrow">TOOLS & TECHNOLOGIES</span>
-            </div>
-            <div className="stack-chips">
-              {stack.map((skill) => (
-                <span key={skill}>{skill}</span>
-              ))}
-            </div>
-          </div>
+          <Skills />
         </section>
         <section id="certifications" className="portfolio-section">
           <div className="section-heading">
@@ -202,9 +195,10 @@ export default function Home() {
           <a href="mailto:robertopablo13.rp@gmail.com">
             robertopablo13.rp@gmail.com ↗
           </a>
-          <p className="muted">
+          <p className="muted contact-location">
             Baguio City, Philippines · Open to relocating abroad
           </p>
+          <Contact />
         </section>
         <footer className="portfolio-footer">
           <span>Señor Roberto Francisco Pablo</span>

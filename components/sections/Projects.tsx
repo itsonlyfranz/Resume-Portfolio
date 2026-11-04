@@ -36,14 +36,16 @@ export function Projects({ projects }: { projects: Project[] }) {
   const fan = [
     others[0],
     featured,
-    others.find((project) => project.category === "Full-stack & mobile") ??
+    others
+      .slice(1)
+      .find((project) => project.category === "Full-stack & mobile") ??
       others[1],
   ].filter(Boolean);
   return (
     <section id="projects" className="portfolio-section">
       <div className="section-heading">
         <h2>01 — projects</h2>
-        <a href="#project-list">ALL →</a>
+        <a href="#all-projects">ALL →</a>
       </div>
       <div className="project-fan">
         {fan.map((project, index) => (
@@ -54,7 +56,7 @@ export function Projects({ projects }: { projects: Project[] }) {
         <summary>
           Explore all {projects.length} projects <span>↓</span>
         </summary>
-        <div id="project-list" className="project-list">
+        <div className="project-list">
           {projects.map((project) => (
             <article key={project._id}>
               <div className="project-list-heading">
