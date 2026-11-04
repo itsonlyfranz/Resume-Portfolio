@@ -65,8 +65,8 @@ export function ChatWidget() {
       aria-describedby="chat-description"
       onClose={() => {
         const trigger = triggerRef.current;
-        if (trigger?.getClientRects().length) trigger.focus();
-        else
+        trigger?.focus();
+        if (!trigger || document.activeElement !== trigger)
           document
             .querySelector<HTMLButtonElement>('[aria-controls="mobile-nav"]')
             ?.focus();
