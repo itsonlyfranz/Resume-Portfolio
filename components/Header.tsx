@@ -2,12 +2,13 @@
 import { useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
 const links = [
-  "projects",
-  "experience",
-  "stack",
-  "certifications",
-  "education",
-  "contact",
+  { id: "about", label: "—" },
+  { id: "projects", label: "01" },
+  { id: "experience", label: "02" },
+  { id: "stack", label: "—" },
+  { id: "certifications", label: "03" },
+  { id: "education", label: "04" },
+  { id: "contact", label: "—" },
 ];
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -34,10 +35,10 @@ export function Header() {
       >
         <p className="eyebrow sidebar-caption">AI ENGINEER / PORTFOLIO</p>
         <nav aria-label="Main navigation">
-          {links.map((link, i) => (
-            <a key={link} href={`#${link}`} onClick={() => setOpen(false)}>
-              <span>{String(i + 1).padStart(2, "0")}</span>
-              {link}
+          {links.map((link) => (
+            <a key={link.id} href={`#${link.id}`} onClick={() => setOpen(false)}>
+              <span>{link.label}</span>
+              {link.id}
             </a>
           ))}
         </nav>
