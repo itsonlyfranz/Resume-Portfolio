@@ -1,19 +1,23 @@
 const skillGroups = [
   {
-    title: "AI & Automation",
-    skills: ["AI Agents", "Prompt Engineering", "MCP", "RAG Systems", "LangGraph", "LangChain", "n8n Automation"],
+    title: "AI and agents",
+    skills: ["LLM Integration", "AI Agents", "LangChain", "LangGraph", "Workflow Orchestration", "n8n"],
   },
   {
-    title: "Full Stack",
-    skills: ["Next.js App Router", "React", "TypeScript", "Node.js", "Python", "FastAPI", "RESTful APIs", "Supabase", "Docker"],
+    title: "Backend and APIs",
+    skills: ["Python", "FastAPI", "Node.js", "Supabase", "API Integrations"],
   },
   {
-    title: "Mobile",
-    skills: ["Swift", "SwiftUI", "SwiftData", "Swift Charts", "Apple Intelligence", "Kotlin", "Android"],
+    title: "Frontend and full-stack",
+    skills: ["TypeScript", "Next.js", "React"],
   },
   {
-    title: "Web3 & Data",
-    skills: ["Polygon", "ethers.js", "OpenSea API", "CoinGecko API", "PostgreSQL", "Zustand", "Git"],
+    title: "Tools",
+    skills: ["Docker"],
+  },
+  {
+    title: "Mobile (iOS)",
+    skills: ["Swift", "SwiftUI", "SwiftData", "Swift Charts", "Apple Intelligence"],
   },
 ]
 
