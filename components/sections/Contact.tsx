@@ -60,42 +60,69 @@ export function Contact() {
     }
   }
 
+  const label = "mb-1.5 block font-mono text-[11px] uppercase tracking-wider text-gray-500"
+  const field =
+    "w-full rounded-lg border border-gray-300 bg-paper px-3.5 py-2.5 text-[14px] text-ink outline-none transition placeholder:text-gray-400 focus:border-ink aria-[invalid=true]:border-red-500"
+  const error = "mt-1.5 block text-[12px] text-red-600 dark:text-red-400"
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="contact-form" noValidate>
-      <div className="contact-form-row">
-        <label>
-          <span className="eyebrow">NAME *</span>
-          <input placeholder="Your name" aria-invalid={!!errors.name} {...register("name")} />
-          {errors.name && <small>{errors.name.message}</small>}
+    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-5 sm:grid-cols-2" noValidate>
+      <div>
+        <label htmlFor="contact-name" className={label}>
+          Name <span className="text-red-600 dark:text-red-400">*</span>
         </label>
-        <label>
-          <span className="eyebrow">EMAIL *</span>
-          <input type="email" placeholder="you@example.com" aria-invalid={!!errors.email} {...register("email")} />
-          {errors.email && <small>{errors.email.message}</small>}
-        </label>
+        <input id="contact-name" autoComplete="name" className={field} placeholder="Your name" aria-invalid={!!errors.name} {...register("name")} />
+        {errors.name && <small className={error}>{errors.name.message}</small>}
       </div>
-      <label>
-        <span className="eyebrow">SUBJECT</span>
-        <input placeholder="What can I help with?" {...register("subject")} />
-      </label>
-      <label>
-        <span className="eyebrow">MESSAGE *</span>
+      <div>
+        <label htmlFor="contact-email" className={label}>
+          Email <span className="text-red-600 dark:text-red-400">*</span>
+        </label>
+        <input id="contact-email" type="email" autoComplete="email" className={field} placeholder="you@example.com" aria-invalid={!!errors.email} {...register("email")} />
+        {errors.email && <small className={error}>{errors.email.message}</small>}
+      </div>
+      <div className="sm:col-span-2">
+        <label htmlFor="contact-subject" className={label}>
+          Subject
+        </label>
+        <input id="contact-subject" autoComplete="off" className={field} placeholder="What can I help with?" {...register("subject")} />
+      </div>
+      <div className="sm:col-span-2">
+        <label htmlFor="contact-message" className={label}>
+          Message <span className="text-red-600 dark:text-red-400">*</span>
+        </label>
         <textarea
+          id="contact-message"
+          autoComplete="off"
           rows={5}
+          className={`${field} resize-y py-3 leading-relaxed`}
           placeholder="Project details, goals, timeline..."
           aria-invalid={!!errors.message}
           {...register("message")}
         />
-        {errors.message && <small>{errors.message.message}</small>}
-      </label>
+        {errors.message && <small className={error}>{errors.message.message}</small>}
+      </div>
       {submitStatus.type && (
-        <p role="status" className={`contact-status is-${submitStatus.type}`}>
+        <p
+          role="status"
+          className={`sm:col-span-2 rounded-lg border px-3.5 py-2.5 text-[13px] ${
+            submitStatus.type === "success"
+              ? "border-gray-300 text-ink"
+              : "border-red-500/40 text-red-600 dark:text-red-400"
+          }`}
+        >
           {submitStatus.message}
         </p>
       )}
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "SENDING..." : "SEND MESSAGE →"}
-      </button>
+      <div className="sm:col-span-2">
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="inline-flex items-center gap-2 rounded-lg bg-ink px-4 py-2.5 font-mono text-[12px] uppercase tracking-wider text-paper hover:opacity-80 disabled:opacity-50"
+        >
+          {isSubmitting ? "Sending..." : "Send message →"}
+        </button>
+      </div>
     </form>
   )
 }

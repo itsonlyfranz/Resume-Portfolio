@@ -9,7 +9,7 @@ Personal portfolio for Señor Roberto Francisco Pablo, an AI engineer working on
 ## Stack
 
 - Next.js 16 (App Router), React 19, TypeScript
-- Tailwind CSS v4, Radix UI primitives
+- Tailwind CSS v4 with Geist, Geist Mono and Geist Pixel fonts
 - Content as MDX via Contentlayer (`content/`)
 - RAG chat: LangGraph + Groq (chat) + OpenRouter (embeddings)
 - Contact form via Resend; analytics via Vercel Analytics
@@ -43,7 +43,6 @@ Create `.env.local` with the variables you need:
 | `OPENROUTER_API_KEY`, `OPENROUTER_EMBEDDING_MODEL` | RAG chat embeddings (required for chat) |
 | `RESEND_API_KEY`, `CONTACT_EMAIL` | Contact form email delivery (optional) |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URL for metadata, sitemap and OG image (defaults to the live URL) |
-| `NEXT_PUBLIC_GITHUB_USERNAME` | GitHub activity section (optional) |
 
 ## Deploy
 

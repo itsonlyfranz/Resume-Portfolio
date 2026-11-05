@@ -1,18 +1,20 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GeistPixelSquare } from "geist/font/pixel/square";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { StructuredData } from "@/components/StructuredData";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { Header } from "@/components/Header";
 import { SITE_URL } from "@/lib/site";
 
-const inter = Geist({
+const geist = Geist({
   variable: "--font-geist",
   subsets: ["latin"],
 });
 
-const jetbrainsMono = Geist_Mono({
+const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
@@ -83,7 +85,7 @@ export default function RootLayout({
         <StructuredData />
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
+        className={`${geist.variable} ${geistMono.variable} ${GeistPixelSquare.variable} font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -91,6 +93,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <a className="skip-link" href="#main">
+            Skip to content
+          </a>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[70vh] overflow-hidden"
+          >
+            <div className="halftone halftone-wide mask-tr absolute right-0 top-0 h-[70vh] w-[65vw] opacity-[0.16]" />
+          </div>
+          <Header />
           {children}
           <ChatWidget />
           <Analytics />
