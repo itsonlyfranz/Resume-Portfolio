@@ -1,0 +1,61 @@
+---
+title: "FinSight Insight LLM - Fine-Tuned On-Device Model"
+description: "Fine-tuned Qwen2.5-1.5B-Instruct with LoRA to write FinSight spending insights from the app's facts, then quantized to a 1.1 GB GGUF that runs at 70.9 tok/s with 100% number fidelity and 100% format validity on a held-out test set."
+featured: false
+image: "/projects/finsight-insight-llm-placeholder.png"
+technologies:
+  [
+    "Python",
+    "Qwen2.5-1.5B-Instruct",
+    "LoRA",
+    "MLX",
+    "llama.cpp",
+    "GGUF",
+    "Hugging Face",
+  ]
+liveUrl: "https://huggingface.co/itsonlyfranz/finsight-insight-qwen2.5-1.5b"
+githubUrl: "https://github.com/itsonlyfranz/finsight-insight-llm"
+highlights:
+  - "Raised format validity from 58.9% for the base model zero-shot to 100% after LoRA fine-tuning on the held-out test set (n=246), with ROUGE-L up from 0.252 to 0.454 and number fidelity at 100%"
+  - "Beat a 2-shot prompted base model (100% fidelity, 95.1% format valid, ROUGE-L 0.373) without needing a long few-shot prompt"
+  - "Quantized to GGUF and picked Q5_K_M as the winner: 1.1 GB (1,125,050,144 B), 70.9 tok/s, 0.92 s mean latency, 100% fidelity and format validity, ROUGE-L 0.456, fact coverage 0.894"
+  - "Compared the quantization tradeoffs: Q8_0 is 1.6 GB at 71.8 tok/s, while Q4_K_M is 0.99 GB at 83.5 tok/s but drops format validity to 98.0%"
+  - "Trained LoRA rank 16 for 600 iterations in 1,790 s with a 14.55 GB peak memory footprint on a Mac mini M2 Pro with 32 GB, using MLX"
+  - "Built a synthetic dataset of 1,618 train, 114 validation and 246 test examples, and measured number fidelity with a port of the app's money-figure guard"
+date: "2026"
+category: "AI Agents"
+order: 9
+---
+
+FinSight Insight LLM fine-tunes a small open model to write the spending insights, simulation summaries and goal messages that the FinSight Android app produces from its own facts. The aim is a model small enough to run on-device that follows the app's output contract every time and never changes a money figure. All results are from a single run on a synthetic held-out test set of 246 examples, so they show the approach rather than a production guarantee.
+
+## Results
+
+Held-out test set, n=246 (117 insight, 78 simulation, 51 goal), greedy decoding, Mac mini M2 Pro with 32 GB.
+
+| Model | Number fidelity | Format valid | ROUGE-L |
+| --- | --- | --- | --- |
+| Base, zero-shot | 97.6% | 58.9% | 0.252 |
+| Base + 2-shot prompt | 100% | 95.1% | 0.373 |
+| Fine-tuned (LoRA) | 100% | 100% | 0.454 |
+| Fine-tuned, GGUF Q5_K_M | 100% | 100% | 0.456 |
+
+## Quantization
+
+- **Q5_K_M** is the winner at 1.1 GB, 70.9 tok/s and 0.92 s mean latency, with no loss in number fidelity or format validity.
+- **Q8_0** is 1.6 GB at 71.8 tok/s, so it costs more bytes for little speed gain.
+- **Q4_K_M** is the smallest and fastest at 0.99 GB and 83.5 tok/s, but it is the only quantization that breaks the output format, at 98.0% valid.
+
+## Training
+
+- **Base model** is Qwen2.5-1.5B-Instruct, fine-tuned with LoRA rank 16 through MLX.
+- **Schedule** is 600 iterations in 1,790 s, with a peak memory footprint of 14.55 GB.
+- **Dataset** is 1,618 train, 114 validation and 246 test synthetic examples.
+- **Export** converts the merged model to GGUF with llama.cpp and publishes the weights on Hugging Face.
+
+## Evaluation
+
+- **Number fidelity** is the pass rate of a port of the app's money-figure guard, so a changed figure counts as a failure.
+- **Format valid** checks that the raw output follows the app's output contract.
+- **ROUGE-L** is scored against templated references, so it measures closeness to a house style rather than human preference.
+- **Fact coverage** is the share of reference money figures the output states.
