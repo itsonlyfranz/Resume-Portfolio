@@ -5,7 +5,7 @@ import { SKILL_GROUPS } from "@/lib/portfolio";
 export const metadata: Metadata = {
   title: "Stack",
   description:
-    "Tools and technologies Señor Roberto Francisco Pablo works with across AI, backend, frontend and iOS.",
+    "Tools and technologies Señor Roberto Francisco Pablo works with across AI, fine-tuning, backend, frontend, iOS and Android.",
   alternates: { canonical: "/stack" },
 };
 
@@ -13,7 +13,7 @@ export default function StackPage() {
   return (
     <PageShell
       title="tech stack"
-      lede="The tools and technologies I work with — across AI and agents, backend and APIs, the front end and iOS."
+      lede="The tools and technologies I work with — across AI and fine-tuning, backend and APIs, the front end, iOS and Android."
       width="max-w-3xl"
     >
       <div className="space-y-10">
