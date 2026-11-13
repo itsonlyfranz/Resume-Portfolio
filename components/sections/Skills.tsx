@@ -1,9 +1,27 @@
 import { Chip, SectionHeading } from "../primitives";
-import { SKILL_GROUPS } from "@/lib/portfolio";
 
-/** Home-page stack preview: every skill as a chip, grouped detail lives on /stack. */
+/** Curated highlights for the home preview; the full grouped list lives on /stack. */
+const HOME_SKILLS = [
+  "LLM Integration",
+  "AI Agents",
+  "LangGraph",
+  "RAG",
+  "Claude API",
+  "Fine-tuning (LoRA)",
+  "Hugging Face",
+  "Python",
+  "FastAPI",
+  "PostgreSQL",
+  "TypeScript",
+  "Next.js",
+  "React",
+  "Docker",
+  "GitHub Actions",
+];
+
+/** Home-page stack preview: a short curated set of chips, full detail lives on /stack. */
 export function Skills() {
-  const skills = SKILL_GROUPS.flatMap((group) => group.skills);
+  const skills = HOME_SKILLS;
   return (
     <div id="stack" className="mt-7 scroll-mt-20">
       <SectionHeading
