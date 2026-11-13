@@ -68,8 +68,6 @@ export const SKILL_GROUPS = [
       "Redis",
       "Uvicorn",
       "JWT auth",
-      ".NET 8",
-      "Telerik Reporting",
     ],
   },
   {
